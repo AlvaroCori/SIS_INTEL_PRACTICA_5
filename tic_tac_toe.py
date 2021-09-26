@@ -6,6 +6,8 @@ Created on Sat Sep 25 19:55:32 2021
 """
 
 import numpy as np
+import time
+import os
 
 def create_board(sizeState):
     board = np.zeros((sizeState,sizeState))
@@ -171,4 +173,35 @@ def Tic_Tac_Toe(gamemode):
 
     return 1
 
-Tic_Tac_Toe(multiplayer)
+def menu():
+    incise = -1
+    while (incise != 0):
+        print("Escoge el modo de juego:")
+        print("1. Multijugador ")
+        print("2. Min_Max ")
+        print("3. Min_Max + AlphaBeta Prunning ")
+        print("4. MinMaxCutoff")
+        incise = int(input())
+        if (incise == 1):
+            functionH = multiplayer
+        elif(incise == 2):
+            #functionH = min_max
+            functionH = multiplayer
+        elif(incise == 3):
+            #functionH = min_max_AlphaBeta
+            functionH = multiplayer
+        elif(incise == 4):
+            #functionH = min_maxCutOff
+            functionH = multiplayer
+        if (incise >= 1 and incise <= 4):
+            init = time.time()
+            request, state,counter = Tic_Tac_Toe(functionH)
+            end = time.time()
+            #print("RESULTADOS:")
+            #printSequency(state)
+            #print(("" if request else "no ") + "se hallo la ruta al objetivo.")
+            #print(f"Se expandio {counter} estados.")
+            print(f"tiempo de ejecucion f{round(end-init,2)} seg.")
+        input("presione enter para continuar.")
+
+menu()
