@@ -55,7 +55,8 @@ def max_value(table,alpha,beta):
         alpha = max(alpha,v)
     return v
 
-b = Board(3)
+b = Board(5)
+b.table[0][0] = -1
 
 print(b.check())
 print(b.table)

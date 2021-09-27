@@ -27,6 +27,7 @@ def translate(coordenate, size_table):
     if (size_table == 4):
         table_positions["D"]=3
     if (size_table == 5):
+        table_positions["D"]=3
         table_positions["E"]=4
     letter = coordenate[0].upper()
     number = int(coordenate[1]) - 1

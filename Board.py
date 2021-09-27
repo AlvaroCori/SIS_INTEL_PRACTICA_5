@@ -88,7 +88,7 @@ class Board:
         val = self.table[self.size-1][0]
         if val != 0:
             for i in range(1, self.size):
-                if (val == self.table[self.size-i][i]):
+                if (val == self.table[self.size-i][i-1]):
                     cont +=1
 
             if (cont == self.size):
