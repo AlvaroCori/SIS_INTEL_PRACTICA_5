@@ -7,7 +7,7 @@ def menu():
     while (incise != 0):
         print("Escoge el modo de juego:")
         print(f"Dificultad: {dificulty_string[dificulty]}")
-        print("Turno del jugador: Primero "+"X" if player_turn == 1 else "O")
+        print("Turno del jugador: Primero "+("X" if player_turn == 1 else "O"))
         print("1. Multijugador ")
         print("2. Min_Max ")
         print("3. Min_Max + AlphaBeta Prunning ")

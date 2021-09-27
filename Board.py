@@ -1,4 +1,5 @@
 import numpy as np
+from functools import reduce
 class Board:
     def __init__(self,size):
         self.size = size
@@ -38,13 +39,9 @@ class Board:
             imp = str(num_fil) + "|"
             esp = " "
         return 1
-
-    def check(self):
-        result = -2
-        fil, col = self.size, self.size
-        vertical = False
+    def check_horizontal(self):
         horizontal = False
-        cruz = False
+        result = -2
         val = 0
         for i in range(self.size):
             cont = 1
@@ -57,7 +54,11 @@ class Board:
             if (cont == self.size):
                 horizontal = True
                 result = 1 if val==1 else -1
-        
+        return horizontal, result
+
+    def check_vertical(self):
+        vertical = False
+        result = -2
         val = 0
         for i in range(self.size):
             cont = 1
@@ -70,21 +71,26 @@ class Board:
             if (cont == self.size):
                 vertical = True
                 result = 1 if val==1 else -1
-        
+        return vertical,result
+
+    def check_cruz_left_to_right(self):
         cont = 1
+        result = -2
+        cruz = False
         val = self.table[0][0]
         if val != 0:
-        
             for i in range(1, self.size):
                 if (val == self.table[i][i]):
                     cont +=1
-
             if (cont == self.size):
                     cruz = True
                     result = 1 if val==1 else -1
-                    return result
-        
+        return cruz, result
+    
+    def check_cruz_right_to_left(self):
         cont = 1
+        result = -2
+        cruz = False
         val = self.table[self.size-1][0]
         if val != 0:
             for i in range(1, self.size):
@@ -94,13 +100,34 @@ class Board:
             if (cont == self.size):
                     cruz = True
                     result = 1 if val==1 else -1
-        
-        if horizontal == False and vertical == False and cruz == False:
-            counter = 0
-            for i in range(fil):
-                for j in range(col):
-                    if self.table[i][j] != 0:
-                        counter = counter + 1
-            if (counter==self.size**2):
-                result = 0
+        return cruz, result
+
+    def check(self):
+        result = -2
+        fil, col = self.size, self.size
+        vertical = False
+        horizontal = False
+        cruz = False
+        horizontal, result = self.check_horizontal()
+        if (horizontal):
+            return result
+        vertical, result = self.check_vertical()
+        if (vertical):
+            return result
+        cruz, result = self.check_cruz_left_to_right()
+        if (cruz):
+            return result
+        cruz, result = self.check_cruz_right_to_left()
+        if (cruz):
+            return result
+        counter = 0
+        for i in range(fil):
+            for j in range(col):
+                 if self.table[i][j] != 0:
+                    counter = counter + 1
+        if (counter==self.size**2):
+            result = 0
         return result
+
+    #reduce
+    #https://www.geeksforgeeks.org/reduce-in-python/

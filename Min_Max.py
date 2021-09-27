@@ -55,7 +55,11 @@ def min_value(table):
     return v
 
 b = Board(3)
-
+b.table[0][0] = -1
+b.table[2][0] = 1
+b.table[2][2] = -1
+b.table[1][1] = 1
+b.table[0][2] = -1
 print(b.check())
 print(b.table)
 

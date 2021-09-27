@@ -10,7 +10,8 @@ import numpy as np
 import time
 import os
 from Board import Board
-
+from Min_Max import min_max_decision
+from Min_Max_Branching import Alpha_Beta_Search
 def utility(value):
     if (value == 0):
         print("Es un empate")
@@ -37,7 +38,9 @@ def translate(coordenate, size_table):
     return number,a
 
 def min_max(board,size_table):
-    r = 2
+    best_position = min_max_decision(board)
+    
+
 def multiplayer(board,size_table):
     valido = False
     while valido == False:
@@ -57,6 +60,9 @@ def multiplayer(board,size_table):
         else:
             valido = True
     return a, b
+
+#def min_max(board,size_table):
+#    continue
 
 def Tic_Tac_Toe(gamemode,size_state, player_turn):
     size_table = size_state + 3
