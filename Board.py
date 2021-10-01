@@ -1,9 +1,21 @@
 import numpy as np
 from functools import reduce
 class Board:
+    def get_actions():
+        return 
     def __init__(self,size):
         self.size = size
         self.table = np.zeros((size,size))
+        self.actions = set()
+    def copy_table(self):
+        new_table = Board(self.size)
+        for i in range(self.size):
+            for j in range(self.size):
+                new_table.table[i][j] = self.table[i][j]
+        return new_table
+    
+    def clear_square(self, position):
+        self.table[position[0]][position[1]] = 0
 
     def print_board(self):
         col, fil = self.size, self.size
@@ -134,3 +146,5 @@ class Board:
 
     #reduce
     #https://www.geeksforgeeks.org/reduce-in-python/
+    #dictionary
+    #https://realpython.com/iterate-through-dictionary-python/

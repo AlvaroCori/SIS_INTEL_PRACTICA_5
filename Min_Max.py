@@ -1,6 +1,9 @@
 import numpy as np
 import copy as cp
 from Board import Board
+import time
+counter = 0
+
 def result(table, action,turn):
     row , col = action
     table.table[row][col] = turn    
@@ -13,38 +16,45 @@ def utility(value):
     if (value == 0):
         print("Han ganado las O")
         
-def cambioturno(turno):
-    if turno == 1:
-        turno = -1
+def change_turn(turn):
+    if turn == 1:
+        turn = -1
     else:
-        turno = 1
-    return turno
+        turn = 1
+    return turn
 
-def actions(board):
+def get_actions(board):
     limit = board.size
-    actions_avalaible = []
+    actions_avalaible = dict()
+    index = 0
     for i in range(limit):
         for j in range(limit):
             if (board.table[i][j]==0):
-                actions_avalaible.append((i,j))
+                actions_avalaible[index] = (i,j)
+                index += 1
     return actions_avalaible
 
-def min_max_decision(table, turno):
+def min_max_decision(table, turn):
     best_action = None
+    actions = get_actions(table)
     sigmov = min_value
     sigb = lambda x,y:x < y
     v = 9999999
-    if turno == 1:
+    if turn == 1:
         sigmov = max_value
         sigb = lambda x,y:x > y
         v = -9999999
     
     value = 0
-    for action in actions(table):
-        ctable = cp.deepcopy(table)
+    for index in actions:
         #print("P1",ctable.table)
-        
-        value = sigmov(result(ctable,action,turno),cambioturno(turno))
+        print("wwwwwwwwwwwwwww")
+        #print(table.table)
+        global counter
+        counter +=1
+        next_actions = actions.copy()
+        action = next_actions.pop(index)
+        value = sigmov(result(table,action,turn),next_actions,change_turn(turn))
         #print("P2",ctable.table)
         #print(value, action)
         #print("ssssssssssssssss")
@@ -52,9 +62,10 @@ def min_max_decision(table, turno):
         if (sigb(value,v)):
             v = value
             best_action = action
+        table.clear_square(action)
     return best_action
 
-def max_value(table, turno):
+def max_value(table, actions, turn):
     request = table.check()
     #print(request,"max")
 
@@ -63,15 +74,22 @@ def max_value(table, turno):
         #print("req:",request)
         return request
     v = -999999
-    for action in actions(table):
-        ctable = cp.deepcopy(table)
+    for index in actions:
+        global counter
+        counter +=1
         #print("M1",ctable.table)
-        v = max(v, min_value(result(ctable,action,turno),cambioturno(turno)))
+        next_actions = actions.copy()
+        action = next_actions.pop(index)
+        v = max(v, min_value(result(table,action,turn),next_actions,change_turn(turn)))
+        table.clear_square(action)
         #print("M2",ctable.table)
         #print(request," max ", v)
+
+
+
     return v
 
-def min_value(table, turno):
+def min_value(table, actions ,turn):
     request = table.check()
     #print(request,"min")
 
@@ -80,17 +98,33 @@ def min_value(table, turno):
         #print("req:",request)
         return request
     v = 999999
-    for action in actions(table):
-        ctable = cp.deepcopy(table)
+    for index in actions:
+        global counter
+        counter +=1
         #print("m1",ctable.table)
         #print("m1.b",table.table)
-        v = min(v, max_value(result(ctable,action,turno),cambioturno(turno)))
+        next_actions = actions.copy()
+        action = next_actions.pop(index)
+        v = min(v, max_value(result(table,action,turn),next_actions,change_turn(turn)))
+        table.clear_square(action)
         #print("m2",ctable.table)
         #print(request," min ",v)
+
     return v
 
 
-b = Board(3)
+b = Board(4)
+
+
+
+print(b.check())
+print(b.table)
+init = time.time()
+print(min_max_decision(b,-1))
+end = time.time()
+print(f"tiempo: {end-init}")
+print(f"counter: {counter}")
+
 '''
 #----------------CASO5
 #b.table[0][0] = 0
@@ -104,20 +138,8 @@ b = Board(3)
 #b.table[2][1] = 1
 #b.table[2][2] = 0
 '''
-#----------------CASO6
-b.table[0][0] = 0
-b.table[0][1] = 1
-b.table[0][2] = 0
-b.table[1][0] = -1
-b.table[1][1] = -1
-b.table[1][2] = 1
-b.table[2][0] = 0
-b.table[2][1] = -1
-b.table[2][2] = 1
-print(b.check())
-print(b.table)
-b.print_board()
-
-print(min_max_decision(b,-1))
 
 
+
+act = get_actions(b)
+print(act)

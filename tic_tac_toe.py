@@ -4,8 +4,6 @@ Created on Sat Sep 25 19:55:32 2021
 
 @author: LEGION
 """
-
-from typing import Coroutine
 import numpy as np
 import time
 import os
@@ -20,12 +18,13 @@ def utility(value):
     if (value == 1):
         print("Han ganado las O")
 
-def cambioturno(turno):
-    if turno == 1:
-        cturno = -1
+def change_turn(turn):
+    cturn = 1
+    if turn == 1:
+        cturn = -1
     else:
-        cturno = 1
-    return cturno
+        cturn = 1
+    return cturn
 
 def translate(coordenate, size_table):
     table_positions = {}
@@ -110,7 +109,7 @@ def Tic_Tac_Toe(gamemode,size_state, player_turn):
             else:
                 print("No se puede jugar sobre esta casilla, intente con otra")
         else:#segundo jugador (humano, maquina)
-            a, b = gamemode(board, cambioturno(player_turn))
+            a, b = gamemode(board, change_turn(player_turn))
             if player == 1:
                 board.table[a][b]= 1
             else:
