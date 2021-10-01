@@ -22,10 +22,10 @@ def utility(value):
 
 def cambioturno(turno):
     if turno == 1:
-        turno = -1
+        cturno = -1
     else:
-        turno = 1
-    return turno
+        cturno = 1
+    return cturno
 
 def translate(coordenate, size_table):
     table_positions = {}
@@ -83,6 +83,7 @@ def Tic_Tac_Toe(gamemode,size_state, player_turn):
     player_1 = False
     if player == player_turn:
         player_1= True
+        player=-1
     
     while (request == -2):
         if player_1 == True: # primer jugador (humano)

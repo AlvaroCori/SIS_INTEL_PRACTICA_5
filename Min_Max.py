@@ -89,8 +89,9 @@ def min_value(table, turno):
         #print(request," min ",v)
     return v
 
-'''
+
 b = Board(3)
+'''
 #----------------CASO5
 #b.table[0][0] = 0
 #b.table[0][1] = -1
@@ -102,6 +103,7 @@ b = Board(3)
 #b.table[2][0] = 1
 #b.table[2][1] = 1
 #b.table[2][2] = 0
+'''
 #----------------CASO6
 b.table[0][0] = 0
 b.table[0][1] = 1
@@ -117,5 +119,5 @@ print(b.table)
 b.print_board()
 
 print(min_max_decision(b,-1))
-'''
+
 
