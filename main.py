@@ -19,7 +19,7 @@ def menu():
             functionH = multiplayer
         elif(incise == 2):
             #functionH = min_max
-            functionH = multiplayer
+            functionH = min_max_decision
         elif(incise == 3):
             #functionH = min_max_AlphaBeta
             functionH = multiplayer

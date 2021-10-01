@@ -11,7 +11,7 @@ import time
 import os
 from Board import Board
 from Min_Max import min_max_decision
-from Min_Max_Branching import Alpha_Beta_Search
+#from Min_Max_Branching import Alpha_Beta_Search
 def utility(value):
     if (value == 0):
         print("Es un empate")
@@ -19,6 +19,13 @@ def utility(value):
         print("Han ganado las X")
     if (value == 1):
         print("Han ganado las O")
+
+def cambioturno(turno):
+    if turno == 1:
+        turno = -1
+    else:
+        turno = 1
+    return turno
 
 def translate(coordenate, size_table):
     table_positions = {}
@@ -41,7 +48,7 @@ def min_max(board,size_table):
     best_position = min_max_decision(board)
     
 
-def multiplayer(board,size_table):
+def multiplayer(board,turno):
     valido = False
     while valido == False:
         print("Turno del segundo jugador")
@@ -50,11 +57,11 @@ def multiplayer(board,size_table):
         while(len(coordenate)!=2):
             print("Seleccione una casilla: ")
             coordenate = input()
-        a, b = translate(coordenate,size_table) 
+        a, b = translate(coordenate,board.size) 
         while(a == -1 or b == -1):
                 print("Seleccione una casilla: ")
                 coordenate = input()
-                a, b = translate(coordenate,size_table)       
+                a, b = translate(coordenate,board.size)       
         if board.table[a][b] != 0:
             print("No se puede jugar sobre esta casilla, intente con otra")
         else:
@@ -102,7 +109,7 @@ def Tic_Tac_Toe(gamemode,size_state, player_turn):
             else:
                 print("No se puede jugar sobre esta casilla, intente con otra")
         else:#segundo jugador (humano, maquina)
-            a, b = gamemode(board,size_table)
+            a, b = gamemode(board, cambioturno(player_turn))
             if player == 1:
                 board.table[a][b]= 1
             else:

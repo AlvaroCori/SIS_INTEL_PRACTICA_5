@@ -102,6 +102,8 @@ class Board:
                     result = 1 if val==1 else -1
         return cruz, result
 
+#Result valores: (10 ganan O, -10 ganan X, 0 empate, -2 sigue el juego )
+
     def check(self):
         result = -2
         fil, col = self.size, self.size
@@ -127,6 +129,7 @@ class Board:
                     counter = counter + 1
         if (counter==self.size**2):
             result = 0
+
         return result
 
     #reduce
