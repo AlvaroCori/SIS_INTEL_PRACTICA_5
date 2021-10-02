@@ -8,7 +8,7 @@ def menu():
     while (incise != 0):
         print("Escoge el modo de juego:")
         print(f"Dificultad: {dificulty_string[dificulty]}")
-        print("Turno del jugador: Primero "+("X" if player_turn == 1 else "O"))
+        print("Primer turno del jugador: Primero "+("Jugador_1" if player_turn == 1 else "Maquina"))
         print("1. Multijugador ")
         print("2. Min_Max ")
         print("3. Min_Max + AlphaBeta Prunning ")
@@ -29,8 +29,8 @@ def menu():
             dificulty = int(input()) -1
         elif (incise == 6):
                 print("Seleccione el turno del primer jugador:")
-                print("1. Primer Turno ")
-                print("2. Segundo Turno ")
+                print("1. Segundo Turno ")
+                print("2. Primer Turno ")
                 player_turn = int(input())
         if (incise >= 1 and incise <= 4):
             init = time.time()

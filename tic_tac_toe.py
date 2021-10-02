@@ -105,6 +105,7 @@ def Tic_Tac_Toe(gamemode,size_state, player_turn):
     a = 0
     b = 0
     player = 1
+    turn = -1
     player_1 = False
     if player == player_turn:
         player_1= True
@@ -114,10 +115,8 @@ def Tic_Tac_Toe(gamemode,size_state, player_turn):
             print("Turno del primer jugador")
             a, b = select_position(size_table)
             if board.table[a][b] == 0:
-                if player == 1:
-                    board.table[a][b]= -1
-                else:
-                    board.table[a][b]= 1
+                board.table[a][b]= turn
+                turn = change_turn(turn)
                 board.print_board()
                 ind +=1
                 player_1 = False
@@ -125,10 +124,8 @@ def Tic_Tac_Toe(gamemode,size_state, player_turn):
                 print("No se puede jugar sobre esta casilla, intente con otra")
         else:#segundo jugador (humano, maquina)
             a, b = gamemode(board, change_turn(player_turn))
-            if player == 1:
-                board.table[a][b]= 1
-            else:
-                board.table[a][b]= -1
+            board.table[a][b]= turn
+            turn = change_turn(turn)
             board.print_board()
             player_1 = True
         request = board.check()
