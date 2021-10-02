@@ -3,7 +3,6 @@ import copy as cp
 from Board import Board
 import time
 
-
 def result(table, action,turn):
     row , col = action
     table.table[row][col] = turn    
@@ -34,7 +33,17 @@ def get_actions(board):
                 index += 1
     return actions_avalaible
 
-def Alpha_Beta_Search(table, turn):
+def evaluate(state):
+    countX = state.count_pieces_alienated(-1)
+    countO = state.count_pieces_alienated(1)
+    return countX - countO
+
+MAX_DEPTH = 6
+#7-> 543.81
+def cut_off(state, depth):
+    return depth == MAX_DEPTH
+
+def min_max_cut_off(table, turn):
     val = 0
     s_act = None
     actions = get_actions(table)
@@ -48,41 +57,38 @@ def Alpha_Beta_Search(table, turn):
         v = -999999
 
     for index in actions:
-        print("wwwwwwwwwwwwww")
         next_actions = actions.copy()
         action = next_actions.pop(index)
-        val = sigmov(result(table,action,turn),next_actions,variables_search, change_turn(turn))
+        val = sigmov(result(table,action,turn),next_actions,variables_search, change_turn(turn),0)
         table.clear_square(action)
         if (sigb(val,v)):
             v = val
             s_act = action
     return s_act
-def min_value(table, actions, variables_search,turn):
+def min_value(table, actions, variables_search,turn, depth):
     request = table.check()
-    if (request!=-2):
-        #print("min", request)
-        return request
+    if (cut_off(table,depth)):
+        return evaluate(table)
     v = 999999
     for index in actions:
         next_actions = actions.copy()
         action = next_actions.pop(index)
-        v = min(v, max_value(result(table,action,turn),next_actions,variables_search, change_turn(turn)))
+        v = min(v, max_value(result(table,action,turn),next_actions,variables_search, change_turn(turn),depth+1))
         table.clear_square(action)
         if (v <= variables_search["alpha"]):
             return v
         variables_search["beta"] = min(variables_search["beta"],v)
     return v
 
-def max_value(table,actions,variables_search,turn):
+def max_value(table,actions,variables_search,turn,depth):
     request = table.check()
-    if (request!=-2):
-        #print("max", request)
-        return request
+    if (cut_off(table,depth)):
+        return evaluate(table)
     v = -999999
     for index in actions:
         next_actions = actions.copy()
         action = next_actions.pop(index)
-        v = max(v, min_value(result(table,action,turn),next_actions,variables_search, change_turn(turn)))
+        v = max(v, min_value(result(table,action,turn),next_actions,variables_search, change_turn(turn),depth+1))
         table.clear_square(action)
         if (v >= variables_search["beta"]):
             return v
@@ -107,7 +113,7 @@ b.table[4] = [-1,-1,-1,-1,0]
 print(b.check())
 print(b.table)
 init = time.time()
-print(Alpha_Beta_Search(b,1))
+print(min_max_cut_off(b,1))
 
 end = time.time()
 print(f"tiempo: {end-init}")

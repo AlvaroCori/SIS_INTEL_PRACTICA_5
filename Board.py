@@ -144,6 +144,21 @@ class Board:
 
         return result
 
+    def count_pieces_alienated(self, mark):
+        counter = 0
+        for row in range(self.size):
+            for col in range(self.size):
+                if (self.table[row][col] == mark or self.table[col][row] == mark):
+                    counter += 1
+        for i in range(self.size):
+            if (self.table[i][i] == mark):
+                counter += 1
+
+        for i in range(self.size):
+            if (self.table[self.size-i-1][i] == mark):
+                counter += 1
+        return counter
+        
     #reduce
     #https://www.geeksforgeeks.org/reduce-in-python/
     #dictionary
