@@ -7,8 +7,11 @@ Created on Sat Sep 25 19:55:32 2021
 import numpy as np
 import time
 import os
+import copy
 from Board import Board
+from Cut_Off import min_max_prunning_cut_off
 from Min_Max import min_max_decision
+from Min_Max_Branching import Alpha_Beta_Search
 #from Min_Max_Branching import Alpha_Beta_Search
 def utility(value):
     if (value == 0):
@@ -43,24 +46,32 @@ def translate(coordenate, size_table):
     a = table_positions.get(letter, -1)
     return number,a
 
-def min_max(board,size_table):
-    best_position = min_max_decision(board)
-    
+def min_max(board,turn):
+    best_position = min_max_decision(copy.deepcopy(board),turn)
+    return best_position
+
+def min_max_prunning(board,turn):
+    best_position = Alpha_Beta_Search(board,turn)
+    return best_position
+
+def min_max_cut_off(board,turn):
+    difficulty = 3
+    if (board.size == 3):
+        difficulty = 1
+    elif (board.size == 5):
+        difficulty = 2
+    elif (board.size == 7):
+        difficulty = 3
+    best_position = min_max_prunning_cut_off(board,turn,difficulty)
+    return best_position
 
 def multiplayer(board,turno):
     valido = False
+    a = 0
+    b = 0
     while valido == False:
         print("Turno del segundo jugador")
-        print("Seleccione una casilla: ")
-        coordenate = input()
-        while(len(coordenate)!=2):
-            print("Seleccione una casilla: ")
-            coordenate = input()
-        a, b = translate(coordenate,board.size) 
-        while(a == -1 or b == -1):
-                print("Seleccione una casilla: ")
-                coordenate = input()
-                a, b = translate(coordenate,board.size)       
+        a, b = select_position(board.size)
         if board.table[a][b] != 0:
             print("No se puede jugar sobre esta casilla, intente con otra")
         else:
@@ -69,6 +80,21 @@ def multiplayer(board,turno):
 
 #def min_max(board,size_table):
 #    continue
+def select_position(size_table):
+    a = -1
+    b = -1
+    print("Seleccione una casilla: ")
+    coordenate = input()
+    while(len(coordenate)!=2):
+        print("Seleccione una casilla: ")
+        coordenate = input()
+    a, b = translate(coordenate,size_table)
+    while(a == -1 or b == -1):
+        print("Seleccione una casilla: ")
+        coordenate = input()
+        a, b = translate(coordenate,size_table)
+
+    return a,b
 
 def Tic_Tac_Toe(gamemode,size_state, player_turn):
     size_table = size_state + 3
@@ -83,21 +109,10 @@ def Tic_Tac_Toe(gamemode,size_state, player_turn):
     if player == player_turn:
         player_1= True
         player=-1
-    
     while (request == -2):
         if player_1 == True: # primer jugador (humano)
             print("Turno del primer jugador")
-            print("Seleccione una casilla: ")
-            coordenate = input()
-            while(len(coordenate)!=2):
-                print("Seleccione una casilla: ")
-                coordenate = input()
-            a, b = translate(coordenate,size_table)
-            while(a == -1 or b == -1):
-                print("Seleccione una casilla: ")
-                coordenate = input()
-                a, b = translate(coordenate,size_table)
-    
+            a, b = select_position(size_table)
             if board.table[a][b] == 0:
                 if player == 1:
                     board.table[a][b]= -1

@@ -37,18 +37,17 @@ def get_actions(board):
 def min_max_decision(table, turn):
     best_action = None
     actions = get_actions(table)
-    sigmov = min_value
+    sigmov = max_value
     sigb = lambda x,y:x < y
     v = 9999999
     if turn == 1:
-        sigmov = max_value
+        sigmov = min_value
         sigb = lambda x,y:x > y
         v = -9999999
     
     value = 0
     for index in actions:
         #print("P1",ctable.table)
-        print("wwwwwwwwwwwwwww")
         #print(table.table)
         global counter
         counter +=1
@@ -56,7 +55,6 @@ def min_max_decision(table, turn):
         action = next_actions.pop(index)
         value = sigmov(result(table,action,turn),next_actions,change_turn(turn))
         #print("P2",ctable.table)
-        #print(value, action)
         #print("ssssssssssssssss")
         #print(value," ",v," ",sigb(value,v), " ",sigmov)
         if (sigb(value,v)):
@@ -113,10 +111,8 @@ def min_value(table, actions ,turn):
     return v
 
 
-b = Board(4)
-
-
-
+'''
+b = Board(3)
 print(b.check())
 print(b.table)
 init = time.time()
@@ -124,22 +120,32 @@ print(min_max_decision(b,-1))
 end = time.time()
 print(f"tiempo: {end-init}")
 print(f"counter: {counter}")
-
+'''
 '''
 #----------------CASO5
-#b.table[0][0] = 0
-#b.table[0][1] = -1
-#b.table[0][2] = 0
-#b.table[1][0] = 1
-#b.table[1][1] = 1
-#b.table[1][2] = -1
-#b.table[2][0] = -1
-#b.table[2][0] = 1
-#b.table[2][1] = 1
-#b.table[2][2] = 0
+b.table[0][0] = 0
+b.table[0][1] = -1
+b.table[0][2] = 0
+b.table[1][0] = 1
+b.table[1][1] = 1
+b.table[1][2] = -1
+b.table[2][0] = -1
+b.table[2][0] = 1
+b.table[2][1] = 1
+b.table[2][2] = 0
 '''
-
-
-
-act = get_actions(b)
-print(act)
+'''
+b = Board(3)
+print(b.check())
+b.table[0][0] = 1
+b.table[0][1] = 1
+b.table[0][2] = -1
+b.table[1][0] = 1
+b.table[1][1] = -1
+b.table[1][2] = 0
+b.table[2][0] = 0
+b.table[2][1] = 0
+b.table[2][2] = 0
+print(b.table)
+print(min_max_decision(b,-1))
+'''

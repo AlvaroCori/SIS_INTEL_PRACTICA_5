@@ -1,3 +1,4 @@
+from Min_Max_Branching import Alpha_Beta_Search
 from tic_tac_toe import *
 def menu():
     incise = -1
@@ -18,14 +19,11 @@ def menu():
         if (incise == 1):
             functionH = multiplayer
         elif(incise == 2):
-            #functionH = min_max
             functionH = min_max_decision
         elif(incise == 3):
-            #functionH = min_max_AlphaBeta
-            functionH = multiplayer
+            functionH = min_max_prunning
         elif(incise == 4):
-            #functionH = min_maxCutOff
-            functionH = multiplayer
+            functionH = min_max_cut_off
         elif(incise == 5):
             print("\n1 : Facil\n 2 : Menidiano\n 3 : Dificil")
             dificulty = int(input()) -1

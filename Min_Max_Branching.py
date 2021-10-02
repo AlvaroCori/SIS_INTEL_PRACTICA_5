@@ -41,22 +41,22 @@ def Alpha_Beta_Search(table, turn):
     variables_search = {"alpha":-999999, "beta":999999}
     v = 999999
     sigmov = max_value
-    sigb = lambda x,y:x > y
+    sigb = lambda x,y:x < y
     if turn == 1:
         sigmov = min_value
         sigb = lambda x,y:x > y
         v = -999999
 
     for index in actions:
-        print("wwwwwwwwwwwwww")
         next_actions = actions.copy()
         action = next_actions.pop(index)
         val = sigmov(result(table,action,turn),next_actions,variables_search, change_turn(turn))
-        table.clear_square(action)
         if (sigb(val,v)):
             v = val
             s_act = action
+        table.clear_square(action)
     return s_act
+
 def min_value(table, actions, variables_search,turn):
     request = table.check()
     if (request!=-2):
@@ -68,7 +68,7 @@ def min_value(table, actions, variables_search,turn):
         action = next_actions.pop(index)
         v = min(v, max_value(result(table,action,turn),next_actions,variables_search, change_turn(turn)))
         table.clear_square(action)
-        if (v <= variables_search["alpha"]):
+        if (v < variables_search["alpha"]):
             return v
         variables_search["beta"] = min(variables_search["beta"],v)
     return v
@@ -84,13 +84,14 @@ def max_value(table,actions,variables_search,turn):
         action = next_actions.pop(index)
         v = max(v, min_value(result(table,action,turn),next_actions,variables_search, change_turn(turn)))
         table.clear_square(action)
-        if (v >= variables_search["beta"]):
+        if (v > variables_search["beta"]):
             return v
         variables_search["alpha"] = max(variables_search["alpha"],v)
     return v
 
-b = Board(5)
+
 '''
+b = Board(5)
 b.table[0] = [-1,-1,-1,-1,1]
 b.table[1] = [1,-1,1,1,0]
 b.table[2] = [-1,-1,-1,-1,0]
@@ -104,6 +105,7 @@ b.table[4] = [-1,-1,-1,-1,0]
 #b.table[0][2]=-1
 #3x3 tiempo: 0.06682252883911133
 #4x4 tiempo: 442.15812063217163
+'''
 print(b.check())
 print(b.table)
 init = time.time()
@@ -111,6 +113,21 @@ print(Alpha_Beta_Search(b,1))
 
 end = time.time()
 print(f"tiempo: {end-init}")
-
+'''
 ##aumentar turnos
+'''
+b = Board(3)
+print(b.check())
+b.table[0][0] = -1
+b.table[0][1] = 1
+b.table[0][2] = 1
+b.table[1][0] = 0
+b.table[1][1] = 0
+b.table[1][2] = 0
+b.table[2][0] = 0
+b.table[2][1] = 0
+b.table[2][2] = -1
+print(b.table)
+print(Alpha_Beta_Search(b,1))
+'''
 

@@ -59,13 +59,14 @@ class Board:
             cont = 1
             val = self.table[i][0]
             if val == 0:
-                break
+                continue
             for j in range(1,self.size):
                 if (val == self.table[i][j]):
                     cont += 1
             if (cont == self.size):
                 horizontal = True
                 result = 1 if val==1 else -1
+                break
         return horizontal, result
 
     def check_vertical(self):
@@ -76,13 +77,14 @@ class Board:
             cont = 1
             val = self.table[0][i]
             if val == 0:
-                break
+                continue
             for j in range(1,self.size):
                 if (val == self.table[j][i]):
                     cont += 1
             if (cont == self.size):
                 vertical = True
                 result = 1 if val==1 else -1
+                break
         return vertical,result
 
     def check_cruz_left_to_right(self):
@@ -106,7 +108,7 @@ class Board:
         val = self.table[self.size-1][0]
         if val != 0:
             for i in range(1, self.size):
-                if (val == self.table[self.size-i][i-1]):
+                if (val == self.table[self.size-1-i][i]):
                     cont +=1
 
             if (cont == self.size):
@@ -158,6 +160,15 @@ class Board:
             if (self.table[self.size-i-1][i] == mark):
                 counter += 1
         return counter
+    
+    def all_squares_occuped(self):
+        request = True
+        for i in range(self.size):
+            for j in range(self.size):
+                if (self.table[i][j] == 0):
+                    request = False
+                    return request
+        return request
         
     #reduce
     #https://www.geeksforgeeks.org/reduce-in-python/
