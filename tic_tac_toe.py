@@ -47,23 +47,23 @@ def translate(coordenate, size_table):
     return number,a
 
 def min_max(board,turn):
-    best_position = min_max_decision(copy.deepcopy(board),turn)
-    return best_position
+    best_position, counter = min_max_decision(board,turn)
+    return best_position[0],best_position[1], counter
 
 def min_max_prunning(board,turn):
-    best_position = Alpha_Beta_Search(board,turn)
-    return best_position
+    best_position, counter = Alpha_Beta_Search(board,turn)
+    return best_position[0],best_position[1], counter
 
 def min_max_cut_off(board,turn):
     difficulty = 3
     if (board.size == 3):
         difficulty = 1
-    elif (board.size == 5):
+    elif (board.size == 4):
         difficulty = 2
-    elif (board.size == 7):
+    elif (board.size == 5):
         difficulty = 3
-    best_position = min_max_prunning_cut_off(board,turn,difficulty)
-    return best_position
+    best_position, counter = min_max_prunning_cut_off(board,turn,difficulty)
+    return best_position[0],best_position[1], counter
 
 def multiplayer(board,turno):
     valido = False
@@ -76,7 +76,7 @@ def multiplayer(board,turno):
             print("No se puede jugar sobre esta casilla, intente con otra")
         else:
             valido = True
-    return a, b
+    return a, b, 0
 
 #def min_max(board,size_table):
 #    continue
@@ -96,7 +96,16 @@ def select_position(size_table):
 
     return a,b
 
+def stadistics_time_duration(times, player):
+    print(f"El tiempo promedio de {player} es de: {round(-sum(times)/len(times),4)} seg.")
+
+
 def Tic_Tac_Toe(gamemode,size_state, player_turn):
+    time_player_1 = []
+    time_player_2 = []
+    counters = []
+    init = 0.0
+    end = 0.0
     size_table = size_state + 3
     board = Board(size_table)
     board.print_board()  
@@ -115,16 +124,23 @@ def Tic_Tac_Toe(gamemode,size_state, player_turn):
             print("Turno del primer jugador")
             a, b = select_position(size_table)
             if board.table[a][b] == 0:
+                init = time.time()
                 board.table[a][b]= turn
                 turn = change_turn(turn)
                 board.print_board()
                 ind +=1
                 player_1 = False
+                end = time.time()
+                time_player_1.append(init-end)
             else:
                 print("No se puede jugar sobre esta casilla, intente con otra")
         else:#segundo jugador (humano, maquina)
-            a, b = gamemode(board, change_turn(player_turn))
+            init = time.time()
+            a, b, counter = gamemode(board, change_turn(player))
+            end = time.time()
+            time_player_2.append(init-end)
             board.table[a][b]= turn
+            counters.append(counter)
             turn = change_turn(turn)
             board.print_board()
             player_1 = True
@@ -132,10 +148,11 @@ def Tic_Tac_Toe(gamemode,size_state, player_turn):
 
     utility(request)
     print("La partida ha terminado")
-    
+    stadistics_time_duration(time_player_1,"jugador 1")
+    stadistics_time_duration(time_player_2,"jugador 2")
+    return counters
     
 
-    return 1,1,1
 
 #diccionario
 #https://stackoverflow.com/questions/9358983/dictionaries-and-default-values

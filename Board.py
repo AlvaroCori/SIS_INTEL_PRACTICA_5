@@ -1,5 +1,7 @@
+from typing import Awaitable
 import numpy as np
 from functools import reduce
+
 class Board:
     def get_actions():
         return 
@@ -146,19 +148,36 @@ class Board:
 
         return result
 
-    def count_pieces_alienated(self, mark):
+    def count_pieces_alienated(self, mark, mark_rival):
         counter = 0
+        counter_row = 0
         for row in range(self.size):
-            for col in range(self.size):
-                if (self.table[row][col] == mark or self.table[col][row] == mark):
-                    counter += 1
-        for i in range(self.size):
-            if (self.table[i][i] == mark):
-                counter += 1
+            counter_row = 0
+            if (reduce(lambda a,b: a+(1 if b == mark_rival else 0),self.table[row],0)>0):  
+                counter_row =  reduce(lambda a,b: a+(1 if b == mark else 0),self.table[row],0)
+            counter = counter + counter_row
 
+            counter_row = 0
+            if (reduce(lambda a,b: a+(1 if b == mark_rival else 0),self.table[:,row],0)>0):  
+                counter_row =  reduce(lambda a,b: a+(1 if b == mark else 0),self.table[:,row],0)
+            counter = counter + counter_row
+
+        counter_row = 0    
+        for i in range(self.size):
+            if (self.table[i][i] == mark_rival):
+                counter_row = 0
+                break
+            if (self.table[i][i] == mark):
+                counter_row += 1
+        counter = counter + counter_row
+        counter_row = 0
         for i in range(self.size):
             if (self.table[self.size-i-1][i] == mark):
+                counter_row = 0
+                break
+            if (self.table[self.size-i-1][i] == mark):
                 counter += 1
+        counter = counter + counter_row
         return counter
     
     def all_squares_occuped(self):
@@ -174,3 +193,7 @@ class Board:
     #https://www.geeksforgeeks.org/reduce-in-python/
     #dictionary
     #https://realpython.com/iterate-through-dictionary-python/
+
+
+#ar = np.array([[1,1,-1],[1,0,0],[0,0,0]])
+#print(reduce(lambda a,b: a+(1 if b == 0 else 0),ar[:,0],0))

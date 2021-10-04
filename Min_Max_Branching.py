@@ -3,7 +3,7 @@ import copy as cp
 from Board import Board
 import time
 
-
+counter = 0
 def result(table, action,turn):
     row , col = action
     table.table[row][col] = turn    
@@ -35,6 +35,8 @@ def get_actions(board):
     return actions_avalaible
 
 def Alpha_Beta_Search(table, turn):
+    global counter
+    counter = 0
     val = 0
     s_act = None
     actions = get_actions(table)
@@ -48,6 +50,7 @@ def Alpha_Beta_Search(table, turn):
         v = -999999
 
     for index in actions:
+        counter += 1
         next_actions = actions.copy()
         action = next_actions.pop(index)
         val = sigmov(result(table,action,turn),next_actions,variables_search, change_turn(turn))
@@ -55,7 +58,7 @@ def Alpha_Beta_Search(table, turn):
             v = val
             s_act = action
         table.clear_square(action)
-    return s_act
+    return s_act, counter
 
 def min_value(table, actions, variables_search,turn):
     request = table.check()
@@ -64,6 +67,8 @@ def min_value(table, actions, variables_search,turn):
         return request
     v = 999999
     for index in actions:
+        global counter
+        counter += 1
         next_actions = actions.copy()
         action = next_actions.pop(index)
         v = min(v, max_value(result(table,action,turn),next_actions,variables_search, change_turn(turn)))
@@ -80,6 +85,8 @@ def max_value(table,actions,variables_search,turn):
         return request
     v = -999999
     for index in actions:
+        global counter
+        counter += 1
         next_actions = actions.copy()
         action = next_actions.pop(index)
         v = max(v, min_value(result(table,action,turn),next_actions,variables_search, change_turn(turn)))

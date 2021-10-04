@@ -1,7 +1,9 @@
+from typing import Counter
 import numpy as np
 import copy as cp
 from Board import Board
 import time
+counter = 0
 
 def result(table, action,turn):
     row , col = action
@@ -34,8 +36,8 @@ def get_actions(board):
     return actions_avalaible
 
 def evaluate(state):
-    countX = state.count_pieces_alienated(-1)
-    countO = state.count_pieces_alienated(1)
+    countX = state.count_pieces_alienated(-1,1)
+    countO = state.count_pieces_alienated(1,-1)
     return countX - countO
 
 max_depth = 6
@@ -45,12 +47,14 @@ def cut_off(state, depth):
 
 def min_max_prunning_cut_off(table, turn,difficulty):
     global max_depth
+    global counter
     if (difficulty==1):
         max_depth = 9
     elif (difficulty==2):
-        max_depth = 6
+        max_depth = 4
     elif (difficulty==3):
-        max_depth = 6
+        max_depth = 3
+    
     val = 0
     s_act = None
     actions = get_actions(table)
@@ -64,21 +68,22 @@ def min_max_prunning_cut_off(table, turn,difficulty):
         v = -999999
 
     for index in actions:
+        counter += 1
         next_actions = actions.copy()
         action = next_actions.pop(index)
         val = sigmov(result(table,action,turn),next_actions,variables_search, change_turn(turn),0)
         table.clear_square(action)
-        print(val, action)
         if (sigb(val,v)):
             v = val
             s_act = action
-    return s_act
+    return s_act, counter
 def min_value(table, actions, variables_search,turn, depth):
-    request = table.check()
     if (cut_off(table,depth) or table.all_squares_occuped()):
         return evaluate(table)
     v = 999999
     for index in actions:
+        global counter
+        counter += 1
         next_actions = actions.copy()
         action = next_actions.pop(index)
         v = min(v, max_value(result(table,action,turn),next_actions,variables_search, change_turn(turn),depth+1))
@@ -93,6 +98,8 @@ def max_value(table,actions,variables_search,turn,depth):
         return evaluate(table)
     v = -999999
     for index in actions:
+        global counter
+        counter += 1
         next_actions = actions.copy()
         action = next_actions.pop(index)
         v = max(v, min_value(result(table,action,turn),next_actions,variables_search, change_turn(turn),depth+1))
@@ -118,6 +125,7 @@ b.table[4] = [-1,-1,-1,-1,0]
 #3x3 tiempo: 0.06682252883911133
 #4x4 tiempo: 442.15812063217163
 '''
+b = Board(3)
 b.table[0][0]=-1
 b.table[0][1]=1
 b.table[0][2]=-1

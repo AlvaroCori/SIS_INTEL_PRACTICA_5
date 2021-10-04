@@ -35,6 +35,8 @@ def get_actions(board):
     return actions_avalaible
 
 def min_max_decision(table, turn):
+    global counter
+    counter = 0
     best_action = None
     actions = get_actions(table)
     sigmov = max_value
@@ -44,12 +46,10 @@ def min_max_decision(table, turn):
         sigmov = min_value
         sigb = lambda x,y:x > y
         v = -9999999
-    
     value = 0
     for index in actions:
         #print("P1",ctable.table)
         #print(table.table)
-        global counter
         counter +=1
         next_actions = actions.copy()
         action = next_actions.pop(index)
@@ -61,7 +61,7 @@ def min_max_decision(table, turn):
             v = value
             best_action = action
         table.clear_square(action)
-    return best_action
+    return best_action, counter
 
 def max_value(table, actions, turn):
     request = table.check()
@@ -89,24 +89,16 @@ def max_value(table, actions, turn):
 
 def min_value(table, actions ,turn):
     request = table.check()
-    #print(request,"min")
-
-    #print("Llega min ",table.table)
     if (request != -2):
-        #print("req:",request)
         return request
     v = 999999
     for index in actions:
         global counter
         counter +=1
-        #print("m1",ctable.table)
-        #print("m1.b",table.table)
         next_actions = actions.copy()
         action = next_actions.pop(index)
         v = min(v, max_value(result(table,action,turn),next_actions,change_turn(turn)))
         table.clear_square(action)
-        #print("m2",ctable.table)
-        #print(request," min ",v)
 
     return v
 
@@ -148,4 +140,12 @@ b.table[2][1] = 0
 b.table[2][2] = 0
 print(b.table)
 print(min_max_decision(b,-1))
+'''
+'''
+b = Board(3)
+print(b.check())
+b.table[0][0] = -1
+
+print(b.table)
+print(min_max_decision(b,1))
 '''
