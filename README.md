@@ -78,7 +78,7 @@ Experiments with Min Max +  Cut Off
 The case depends in each case how we can see in the tables
 
 
-| 3X3 <td  |Min Max            |  Min Max Prunning   | Cut Off            |
+| 3X3   |Min Max            |  Min Max Prunning   | Cut Off            |
 | :------: | :---------------: | :-----------------: | :-----------------:|
 |   9      |  549945 	       |   66453  	     |    3253 		  |  
 |   7      |   7331  	       |    1253  	     |    4839  	  |   
