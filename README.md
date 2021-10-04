@@ -27,3 +27,54 @@ We implement dictionaries because is more fast pass a dictionary than calculate 
 In the algorithm min_max
 When we recalculate the possible results we get in seconds 9.52s, 8.82s, 9.05s, 14.02s and 10.46s
 When we save actions in dictionaries the possible results we get in seconds 7.57s, 7.63s, 7.48s, 7.39s and 8.06s
+
+
+Experiments with Min Max
+--------------------------------
+
+We play against the algorithm, and the results are the next:
+
+| Tic Tac Toe  | Average time  | Expanded states |  Total States |
+| :------: | :---------------: | :-----------------: | :-----------: |
+|  3x3     |    0.00   |    1rs move, 2nd move,etc  | Total   |
+|  N° 1    |    0.00   |    549945, 7331, 197, 13, 1   | 557487 |
+|  N° 2    |    0.00   |    549945, 8231, 245, 11     | 558432 |
+|  N° 3    |    0.00   |    549945, 7331, 197, 13, 1      | 557487|
+|  N° 4    |    0.00   |    549945, 7583, 124, 8      | 557660 |
+|  N° 5    |    0.00   |    549945, 7583, 173, 8    | 557709 |
+|  Average   |    0.00   |    549945, 7611.8,  187.2 , 10.6, 0.4  | 557755 |
+
+
+Experiments with Min Max +  AlphaBeta Prunning
+-----------------------------------------------
+
+| Tic Tac Toe  | Average time  | Expanded states | Total States | 
+| :------: | :---------------: | :-----------------: | :-----------: |
+|  3x3     |    Seg   |    1rs move, 2nd move,etc  |      Total  |
+|  N° 1    |    0.00   |    66453, 1253, 42, 13, 1   |  67762 |
+|  N° 2    |    0.00   |    66453, 1253, 42    | 67748 | 
+|  N° 3    |    0.00   |    66453, 3792, 122, 9     | 70376 |
+|  N° 4    |    0.0052 |    66453, 4164, 142, 10     | 70769 |
+|  N° 5    |    0.00   |    66453, 1592, 205, 11   | 68261 |
+|  Average   |    0.001  |                       | 68983.2     |
+
+Experiments with Min Max +  Cut Off
+-----------------------------------------------
+
+| Tic Tac Toe  | Average time  | Expanded states | Total States | 
+| :------: | :---------------: | :-----------------: | :-----------: |
+|  3x3     |    Seg   |    1rs move, 2nd move,etc  |      Total  |
+|  N° 1    |    0.00   |    22219, 23012, 23069, 23084  |  91384 |
+|  N° 2    |    0.00   |    45303, 46096, 46153, 46168   | 183720 | 
+|  N° 3    |    0.00   |    68387, 78691, 79016    | 226094 |
+|  N° 4    |    0.00 |    101235, 109071, 109356   | 319662 |
+|  N° 5    |    0.00   |    131575, 132368, 132425, 132440  | 528808 |
+|  Average   |    0.00  |                       | 269933.6     |
+
+
+Conclusions 
+=====================
+
+Just seeing the 3x3 results, the most eficcient algorithm is the Min Max +  AlphaBeta Prunning, with less states, even if in one experiment it had a time over 0.00 seconds, it is negligible, the three algorithms works so fast, so the only way to compare them is with the number of states that every one expands.
+With this situation, the algorithm of Min Max +  AlphaBeta Prunning is the most efficient.
+
