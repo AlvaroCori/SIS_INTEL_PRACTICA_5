@@ -34,47 +34,109 @@ Experiments with Min Max
 
 We play against the algorithm, and the results are the next:
 
-| Tic Tac Toe  | Average time  | Expanded states |  Total States |
-| :------: | :---------------: | :-----------------: | :-----------: |
-|  3x3     |    0.00   |    1rs move, 2nd move,etc  | Total   |
-|  N° 1    |    0.00   |    549945, 7331, 197, 13, 1   | 557487 |
-|  N° 2    |    0.00   |    549945, 8231, 245, 11     | 558432 |
-|  N° 3    |    0.00   |    549945, 7331, 197, 13, 1      | 557487|
-|  N° 4    |    0.00   |    549945, 7583, 124, 8      | 557660 |
-|  N° 5    |    0.00   |    549945, 7583, 173, 8    | 557709 |
-|  Average   |    0.00   |    549945, 7611.8,  187.2 , 10.6, 0.4  | 557755 |
+| Tic Tac Toe  | Expanded states |  Total States |
+| :------:  | :-----------------: | :-----------: |
+|  3x3     |    1rs move, 2nd move,etc  | Total   |
+|  N° 1    |    549945, 7331, 197, 13, 1   | 557487 |
+|  N° 2    |       549945, 8231, 245, 11     | 558432 |
+|  N° 3    |     549945, 7331, 197, 13, 1      | 557487|
+|  N° 4    |     549945, 7583, 124, 8      | 557660 |
+|  N° 5    |      549945, 7583, 173, 8    | 557709 |
+|  Average   |      549945, 7611.8,  187.2 , 10.6, 0.4  | 557755 |
 
 
 Experiments with Min Max +  AlphaBeta Prunning
 -----------------------------------------------
 
-| Tic Tac Toe  | Average time  | Expanded states | Total States | 
-| :------: | :---------------: | :-----------------: | :-----------: |
-|  3x3     |    Seg   |    1rs move, 2nd move,etc  |      Total  |
-|  N° 1    |    0.00   |    66453, 1253, 42, 13, 1   |  67762 |
-|  N° 2    |    0.00   |    66453, 1253, 42    | 67748 | 
-|  N° 3    |    0.00   |    66453, 3792, 122, 9     | 70376 |
-|  N° 4    |    0.0052 |    66453, 4164, 142, 10     | 70769 |
-|  N° 5    |    0.00   |    66453, 1592, 205, 11   | 68261 |
-|  Average   |    0.001  |                       | 68983.2     |
+| Tic Tac Toe  |  Expanded states | Total States | 
+| :------: | :-----------------: | :-----------: |
+|  3x3     |   1rs move, 2nd move,etc  |      Total  |
+|  N° 1    |    66453, 1253, 42, 13, 1   |  67762 |
+|  N° 2    |     66453, 1253, 42    | 67748 | 
+|  N° 3    |       66453, 3792, 122, 9     | 70376 |
+|  N° 4    |     66453, 4164, 142, 10     | 70769 |
+|  N° 5    |     66453, 1592, 205, 11   | 68261 |
+|  Average   |                         | 68983.2     |
 
 Experiments with Min Max +  Cut Off
 -----------------------------------------------
 
-| Tic Tac Toe  | Average time  | Expanded states | Total States | 
+| Tic Tac Toe  |  Expanded states | Total States | 
 | :------: | :---------------: | :-----------------: | :-----------: |
-|  3x3     |    Seg   |    1rs move, 2nd move,etc  |      Total  |
-|  N° 1    |    0.00   |    22219, 23012, 23069, 23084  |  91384 |
-|  N° 2    |    0.00   |    45303, 46096, 46153, 46168   | 183720 | 
-|  N° 3    |    0.00   |    68387, 78691, 79016    | 226094 |
-|  N° 4    |    0.00 |    101235, 109071, 109356   | 319662 |
-|  N° 5    |    0.00   |    131575, 132368, 132425, 132440  | 528808 |
-|  Average   |    0.00  |                       | 269933.6     |
+|  3x3     |     1rs move, 2nd move,etc  |      Total  |
+|  N° 1    |     22219, 23012, 23069, 23084  |  91384 |
+|  N° 2    |      45303, 46096, 46153, 46168   | 183720 | 
+|  N° 3    |    68387, 78691, 79016    | 226094 |
+|  N° 4    |      101235, 109071, 109356   | 319662 |
+|  N° 5    |   131575, 132368, 132425, 132440  | 528808 |
+|  Average   |                        | 269933.6     |
+
+
+
+
+## How many states does the game tree have for a 3x3, 4x4 and 5x5 board?
+The case depends in each case how we can see in the tables
+
+
+| 3X3 <td  |Min Max            |  Min Max Prunning   | Cut Off            |
+| :------: | :---------------: | :-----------------: | :-----------------:|
+|   9      |  549945 	       |   66453  	     |    3253 		  |  
+|   7      |   7331  	       |    1253  	     |    4839  	  |   
+|   5      |  197 	       |    42  	     |    4873  	  |   
+|   3      |  13  	       |    13  	     |    4877  	  |  
+|   1      |  1  	       |    1   	     |    4873  	  |   
+|  TOTAL   | 557487  	       |   67762  	     |    22715  	  |  
+
+
+
+| 3X3 <td  |Min Max            |  Min Max Prunning   | Cut Off            |
+| :------: | :---------------: | :-----------------: | :-----------------:|
+|   8      |  55504	       |   24802  	     |    3253 		  |  
+|   6      |   935  	       |    377  	     |    4849  	  |   
+|   4      |  50	       |    44  	     |    4899  	  |   
+|   2      |  4  	       |     4  	     |    4903  	  |  
+|  TOTAL   | 56493 	       |   25227  	     |    17904  	  |  
+
+
+## What is the algorithm that takes more (less) and expands more (less) states? MinMax, MinMax + AlphaBeta Prunning or MinMaxCutoff?
+
+#### 3x3
+The Min max take 1.2 seg and 1.1 segs in average.
+
+The states expanded is the worst when the pc take first turn.
+The states expanded is the worst when the pc take second turn.
+
+The Min max prunning take 0.22 segs and 0.1157 segs in average.
+
+The states expanded is in the middle when the pc take first turn.
+The states expanded is in the middle when the pc take second turn.
+
+The cut off take 0.22 segs and 0.11 segs  0.03 segs in average.
+
+
+The states expanded is in the best when the pc take first turn.
+The states expanded is in the best when the pc take second turn.
 
 
 Conclusions 
 =====================
 
-Just seeing the 3x3 results, the most eficcient algorithm is the Min Max +  AlphaBeta Prunning, with less states, even if in one experiment it had a time over 0.00 seconds, it is negligible, the three algorithms works so fast, so the only way to compare them is with the number of states that every one expands.
-With this situation, the algorithm of Min Max +  AlphaBeta Prunning is the most efficient.
+The best algorithm is the cut off, because we can cut to a certain level so that optimizing the time is even the one that takes less time to realize it.
+
+The middle algorithm is the  prunning, because this cut brands and not examine all the cases.
+
+The worst algorithm is the min max, because this take all the cases and take a large time.
+
+All algorithms can responde in reasonable time on the 3x3 board, but when it does on the 4x4 board only the cut off can do it in optimal time and the prunning takes more than 7 minutes to respond. For the 5x5 board only the cut off can respond in time. The min max algorithm is only optimal if used on the 3x3 board.
+
+## Bibliography
+### reduce
+https://www.geeksforgeeks.org/reduce-in-python/
+
+### dictionary
+https://realpython.com/iterate-through-dictionary-python/
+https://stackoverflow.com/questions/9358983/dictionaries-and-default-values
+
+### numpy array
+https://numpy.org/doc/stable/reference/generated/numpy.array.html
 
