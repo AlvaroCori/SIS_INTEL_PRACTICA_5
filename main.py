@@ -42,6 +42,7 @@ def menu():
         if (incise >= 1 and incise <= 5 or incise == 8):
             counters = Tic_Tac_Toe(functionH, dificulty, player_turn)
             print(f"contador de estados expandidos maquina/segundo_jugador: {counters}")
+            print(f"Total: {sum(counters)}")
         input("presione enter para continuar.")
 
 menu()

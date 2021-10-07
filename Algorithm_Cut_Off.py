@@ -4,7 +4,7 @@ import copy as cp
 from Board import Board
 import time
 counter = 0
-
+difficulty_board = 3
 def result(table, action,turn):
     row , col = action
     table.table[row][col] = turn    
@@ -36,9 +36,9 @@ def get_actions(board):
     return actions_avalaible
 
 def evaluate(state):
-    countX = state.count_pieces_alienated(-1,1)
-    countO = state.count_pieces_alienated(1,-1)
-    return countX - countO
+    if (difficulty_board):
+        return state.check()
+    return 4
 
 max_depth = 6
 #7-> 543.81
@@ -48,6 +48,8 @@ def cut_off(state, depth):
 def min_max_prunning_cut_off(table, turn,difficulty):
     global max_depth
     global counter
+    global difficulty_board
+    difficulty_board = difficulty
     if (difficulty==1):
         max_depth = 4
     elif (difficulty==2):
@@ -109,7 +111,6 @@ def max_value(table,actions,variables_search,turn,depth):
         variables_search["alpha"] = max(variables_search["alpha"],v)
     return v
 
-b = Board(3)
 '''
 b.table[0] = [-1,-1,-1,-1,1]
 b.table[1] = [1,-1,1,1,0]

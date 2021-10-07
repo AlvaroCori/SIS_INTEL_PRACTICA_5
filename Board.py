@@ -8,7 +8,7 @@ class Board:
     def __init__(self,size):
         self.size = size
         self.table = np.zeros((size,size))
-        self.actions = set()
+
     def copy_table(self):
         new_table = Board(self.size)
         for i in range(self.size):

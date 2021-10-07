@@ -48,15 +48,10 @@ def min_max_decision(table, turn):
         v = -9999999
     value = 0
     for index in actions:
-        #print("P1",ctable.table)
-        #print(table.table)
         counter +=1
         next_actions = actions.copy()
         action = next_actions.pop(index)
         value = sigmov(result(table,action,turn),next_actions,change_turn(turn))
-        #print("P2",ctable.table)
-        #print("ssssssssssssssss")
-        #print(value," ",v," ",sigb(value,v), " ",sigmov)
         if (sigb(value,v)):
             v = value
             best_action = action
@@ -65,26 +60,16 @@ def min_max_decision(table, turn):
 
 def max_value(table, actions, turn):
     request = table.check()
-    #print(request,"max")
-
-    #print("Llega max ",table.table)
     if (request != -2):
-        #print("req:",request)
         return request
     v = -999999
     for index in actions:
         global counter
         counter +=1
-        #print("M1",ctable.table)
         next_actions = actions.copy()
         action = next_actions.pop(index)
         v = max(v, min_value(result(table,action,turn),next_actions,change_turn(turn)))
         table.clear_square(action)
-        #print("M2",ctable.table)
-        #print(request," max ", v)
-
-
-
     return v
 
 def min_value(table, actions ,turn):
@@ -102,50 +87,3 @@ def min_value(table, actions ,turn):
 
     return v
 
-
-'''
-b = Board(3)
-print(b.check())
-print(b.table)
-init = time.time()
-print(min_max_decision(b,-1))
-end = time.time()
-print(f"tiempo: {end-init}")
-print(f"counter: {counter}")
-'''
-'''
-#----------------CASO5
-b.table[0][0] = 0
-b.table[0][1] = -1
-b.table[0][2] = 0
-b.table[1][0] = 1
-b.table[1][1] = 1
-b.table[1][2] = -1
-b.table[2][0] = -1
-b.table[2][0] = 1
-b.table[2][1] = 1
-b.table[2][2] = 0
-'''
-'''
-b = Board(3)
-print(b.check())
-b.table[0][0] = 1
-b.table[0][1] = 1
-b.table[0][2] = -1
-b.table[1][0] = 1
-b.table[1][1] = -1
-b.table[1][2] = 0
-b.table[2][0] = 0
-b.table[2][1] = 0
-b.table[2][2] = 0
-print(b.table)
-print(min_max_decision(b,-1))
-'''
-'''
-b = Board(3)
-print(b.check())
-b.table[0][0] = -1
-
-print(b.table)
-print(min_max_decision(b,1))
-'''

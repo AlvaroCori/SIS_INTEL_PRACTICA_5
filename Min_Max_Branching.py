@@ -96,7 +96,6 @@ def max_value(table,actions,variables_search,turn):
         variables_search["alpha"] = max(variables_search["alpha"],v)
     return v
 
-
 '''
 b = Board(5)
 b.table[0] = [-1,-1,-1,-1,1]

@@ -155,6 +155,4 @@ def Tic_Tac_Toe(gamemode,size_state, player_turn):
     
 
 
-#diccionario
-#https://stackoverflow.com/questions/9358983/dictionaries-and-default-values
 
