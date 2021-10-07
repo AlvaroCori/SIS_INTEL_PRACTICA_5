@@ -8,6 +8,14 @@ class Board:
     def __init__(self,size):
         self.size = size
         self.table = np.zeros((size,size))
+        self.depth = 0
+        self.turn = -1
+
+    def change_turn(self):
+        if self.turn == 1:
+            self.turn = -1
+        else:
+            self.turn = 1
 
     def copy_table(self):
         new_table = Board(self.size)

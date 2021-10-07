@@ -52,6 +52,7 @@ def min_max_decision(table, turn):
         next_actions = actions.copy()
         action = next_actions.pop(index)
         value = sigmov(result(table,action,turn),next_actions,change_turn(turn))
+        print("elemento",value,action)
         if (sigb(value,v)):
             v = value
             best_action = action

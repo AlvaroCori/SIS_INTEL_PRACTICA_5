@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Oct  6 16:47:29 2021
-
-@author: LEGION
-"""
-
 import numpy as np
 import copy as cp
 import math as mt
@@ -156,10 +149,6 @@ def check(table, turn):
     worse_col = 0
     utility_worse_col = 0
     for i in range(table.size):
-        #print("best_row:",best_row, "utility_best_row:",utility_best_row)
-        #print("best_col:",best_col, "utility_best_col:",utility_best_col)
-        #print("worse_row:",worse_row, "utility_worse_row:",utility_worse_row)
-        #print("worse_col:",worse_col, "utility_worse_col:",utility_worse_col)
         utility_row = check_row(table, i, turn)
         if  utility_row > utility_best_row:
             best_row = i
@@ -258,30 +247,4 @@ def move(table, turn):
                 for j in range(table.size):
                     if table.table[i][j] == 0:
                         a, b = i, j
-    return a, b
-
-'''
-b = Board(5)
-b.table[2][2] = -1
-#b.table[3][1] = -1
-#b.table[3][3] = -1
-#b.table[1][1] = 1
-#b.table[1][3] = 1
-#b.table[1][2] = 1
-#b.table[1][0] = -1
-#b.table[3][0] = 1
-#b.table[2][4] = -1
-#b.table[2][0] = 1
-#b.table[0][4] = -1
-#b.table[0][0] = 1
-#b.table[4][4] = -1
-#b.table[4][0] = 1
-#b.table[1][4] = -1
-#b.table[3][4] = 1
-b.print_board()
-mov_a, mov_b = move(b, 1)
-print(mov_a, mov_b)
-'''
-
-
-
+    return a, b,0

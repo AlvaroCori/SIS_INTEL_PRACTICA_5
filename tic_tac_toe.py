@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Sep 25 19:55:32 2021
-
-@author: LEGION
-"""
 import numpy as np
 import time
 import os
@@ -13,6 +7,7 @@ from Cut_Off import min_max_prunning_cut_off
 from Min_Max import min_max_decision
 from Min_Max_Branching import Alpha_Beta_Search
 from best_worse import move
+from Cut_Off_Thanatos import thanatos
 #from Min_Max_Branching import Alpha_Beta_Search
 def utility(value):
     if (value == 0):
@@ -65,6 +60,17 @@ def min_max_cut_off(board,turn):
         difficulty = 3
     best_position, counter = min_max_prunning_cut_off(board,turn,difficulty)
     return best_position[0],best_position[1], counter
+
+def min_max_cut_off_thanatos(board, turn):
+    difficulty = 3
+    if (board.size == 3):
+        difficulty = 1
+    elif (board.size == 4):
+        difficulty = 2
+    elif (board.size == 5):
+        difficulty = 3
+    best_position, counter = thanatos(board,turn,difficulty)
+    return best_position[0],best_position[1], counter 
 
 def multiplayer(board,turno):
     valido = False
