@@ -12,6 +12,7 @@ from Board import Board
 from Cut_Off import min_max_prunning_cut_off
 from Min_Max import min_max_decision
 from Min_Max_Branching import Alpha_Beta_Search
+from best_worse import move
 #from Min_Max_Branching import Alpha_Beta_Search
 def utility(value):
     if (value == 0):
