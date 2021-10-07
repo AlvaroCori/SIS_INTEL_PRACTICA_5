@@ -97,6 +97,10 @@ def select_position(size_table):
     return a,b
 
 def stadistics_time_duration(times, player):
+    print("Los tiempos fueron:")
+    for t in times:
+        print(f"{-round(t,2)} seg. ",end="")
+    print("\n")
     print(f"El tiempo promedio de {player} es de: {round(-sum(times)/len(times),4)} seg.")
 
 

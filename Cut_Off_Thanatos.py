@@ -51,7 +51,7 @@ def thanatos(table, turn):
     if (table.size <= 3):
         max_depth = 9
     elif (table.size == 4):
-        max_depth = 4
+        max_depth = 5
     elif (table.size >= 5):
         max_depth = 3
     
@@ -73,7 +73,6 @@ def thanatos(table, turn):
         action = next_actions.pop(index)
         table.depth += 1 
         value = sigmov(next_state(table,action),next_actions,variables_search)
-        print("elemento",value,action)
         if (sigb(value,v)):
             v = value
             best_action = action
@@ -123,51 +122,29 @@ def max_value(table,actions,variables_search):
             return v
         variables_search["alpha"] = max(variables_search["alpha"],v)
     return v
-'''
-b = Board(3)
-b.table[0][0]=-1
-b.table[0][1]=1
-b.table[0][2]=-1
-b.table[1][0]=1
-b.table[1][1]=-1
-b.table[1][2]=-1
-b.table[2][0]=1
-b.table[2][1]=-1
-b.table[2][2]=0
-print(b.check())
-print(b.table)
-init = time.time()
-print(min_max_prunning_cut_off(b,1,1))
-
-end = time.time()
-print(f"tiempo: {end-init}")
-
-##aumentar turnos
-
-'''
-'''
-b = Board(3)
-b.table[0][0]=-1
-b.table[0][1]=1
-b.table[0][2]=-1
-b.table[1][0]=1
-b.table[1][1]=-1
-b.table[1][2]=1
-print(b.table)
-print(b.check())
-'''
 def evaluate(state):
     request = state.check()
     if (request == 1):
-        #print(state.table)
-        #print(state.depth)
-        #print("/n",100*(max_depth+1-state.depth))
         return 100*(max_depth+1-state.depth)
     if (request == -1):
-        #print(state.table)
-        #print(state.depth)
-        #print("/n",-100*(max_depth+1-state.depth))
         return -100*(max_depth+1-state.depth)
+    if (request == -2):
+        first_i = 0
+        first_j = 0
+        take_first = False
+        for i in range(state.size):
+            for j in range(state.size):
+                if (state.table[i][j] == 0):
+                    request = 10
+                    if (take_first == False):
+                        first_i = i
+                        first_j = j
+                        take_first = True
+                    if (i!=0 and i!=state.size-1 and j!=0 and j!=state.size-1):
+                        return 20 * state.count_cross_pieces(i,j)
+        if (request == 10):
+            request += state.count_cross_pieces(first_i,first_j)
+        return request * state.turn
     return request
 '''
 b = Board(3)

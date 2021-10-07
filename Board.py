@@ -196,12 +196,29 @@ class Board:
                     request = False
                     return request
         return request
+
+    def count_cross_pieces(self,row,col):
+        counter = -self.table[row][col]*2
+        for i in range(self.size):
+            counter += self.table[row][i]
+        for i in range(self.size):
+            counter += self.table[i][col]
+        if (row-col == 0):
+            counter += -self.table[row][col]
+            for i in range(self.size):
+                counter += self.table[i][i]
+        counter += -self.table[row][col]
+        for i in range(self.size):
+            counter += self.table[i][i]
+        flag_diagonal_right = False
+        for i in range(self.size):
+            if (self.size-1-i == row and i == col):
+                flag_diagonal_right = True
+                break
+        if (flag_diagonal_right):
+            counter += -self.table[row][col]
+            for i in range(self.size):
+                counter += self.table[self.size-1-i][i]
+
+        return counter
         
-    #reduce
-    #https://www.geeksforgeeks.org/reduce-in-python/
-    #dictionary
-    #https://realpython.com/iterate-through-dictionary-python/
-
-
-#ar = np.array([[1,1,-1],[1,0,0],[0,0,0]])
-#print(reduce(lambda a,b: a+(1 if b == 0 else 0),ar[:,0],0))

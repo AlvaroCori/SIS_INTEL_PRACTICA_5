@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Oct  6 16:47:29 2021
-
-@author: LEGION
-"""
-
 import numpy as np
 import copy as cp
 import math as mt

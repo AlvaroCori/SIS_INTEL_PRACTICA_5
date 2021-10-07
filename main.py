@@ -1,9 +1,8 @@
-from Min_Max_Branching import Alpha_Beta_Search
 from tic_tac_toe import *
 def menu():
     incise = -1
-    dificulty = 1
-    player_turn = 1
+    dificulty =1
+    player_turn = 2
     dificulty_string = ["facil 3x3", "mediano 4x4", "dificil 5x5"]
     while (incise != 0):
         print("Escoge el modo de juego:")
