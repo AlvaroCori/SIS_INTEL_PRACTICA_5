@@ -11,7 +11,15 @@ When a tic tac toe game begins first one person put in the table a mark (X or O)
 The problem know as adversarial algorithm needs two types of game. A player vs player and a player vs machine. Implement a game with two players are known but long to implement. But with the machine we need to implement a algorithm that see the next steps of the adversarial and take the best request to the machine can take the decision of mark a square and challenge a person.
 We use:
 Min Max.- The algorithm explores a tree with all the states possible and take the max or the min value of victory in order to take the best benefit for the machine.
-Min Max Pruning. - The algorithm implements the same logic of Min Max, this algorithm also cut the branch that we know that we don’t need because we get a response in a branch that be the max or the min solution by the father of the branches.
+Min Max Prunning. - The algorithm implements the same logic of Min Max, this algorithm also cut the branch that we know that we don’t need because we get a response in a branch that be the max or the min solution by the father of the branches.
+Cut Off.- The cut off algorithm is similar at the Min Max Prunning with the difference of we implement a different end case for the recursive functions, with a some depth the algorithm looks for a heuristic that allows us to obtain a value of if it is gaining maximum or minimum.
+
+We implement two cut off heucharistics:
+1 .- Heuristic of counting alienated pieces, this heuristic counts each row horizontally, vertically and diagonally if this row contains squares marked in favor and empty squares add the squares, if it has squares marked in favor and squares marked with enemy marks add 0.
+
+2 .- Heuristic of depth.- This heuristic gets the result of the board and interprets it in different ways, if in the board are won the positive pieces rettorna 100 multiplied with the difference between the final depth plus one less the depth in which the state is found.
+If he’s earning minimum returns the same but negative, if a square is greater than the first position and last position of the rows and columns returns a 20 if this in the limits returns a 10 squares are added with the same mark and subtracted with those of the rival mark depending on whether it is a maximum or minimum mark.
+
 First, we get a table 3x3, 4x4 or 5x5 then the first player marks a position and be the turn of the second player. We repeat these cases until we get a table without free spaces.
 The things we need to implement are:
 Initial State: A table without any mark or with squares non used.
@@ -25,12 +33,18 @@ Terminal test: Return the result in terms of gain or lossy. -2 already exits squ
 
 We implement dictionaries because is more fast pass a dictionary than calculate in every called at the function min or max.
 In the algorithm min_max
-When we recalculate the possible results we get in seconds 9.52s, 8.82s, 9.05s, 14.02s and 10.46s
-When we save actions in dictionaries the possible results we get in seconds 7.57s, 7.63s, 7.48s, 7.39s and 8.06s
 
+
+## How many states does the game tree have for a 3x3, 4x4 and 5x5 board?
+
+Now we compare all the results obtained for all the algorithms Min Max, Min Max Prunning, Cut Off counting the marks and the Cut Off
+using the depth and squares with more angules, we implemented in tables.
 
 Experiments with Min Max
 --------------------------------
+
+The reason because we use dictionary is for when we recalculate the actions avaliable we got in seconds 9.52s, 8.82s, 9.05s, 14.02s and 10.46s
+When we save actions in dictionaries and pass a the next called the possible results we got in seconds 7.57s, 7.63s, 7.48s, 7.39s and 8.06s
 
 We play against the algorithm, and the results are the next:
 
@@ -58,23 +72,21 @@ Experiments with Min Max +  AlphaBeta Prunning
 |  N° 5    |     66453, 1592, 205, 11   | 68261 |
 |  Average   |                         | 68983.2     |
 
-Experiments with Min Max +  Cut Off
------------------------------------------------
+Experiments with Min Max +  Cut Off + Count marks aliegned
+-----------------------------------------------------------
 
-| Tic Tac Toe  |  Expanded states | Total States | 
-| :------: | :---------------: | :-----------------: | :-----------: |
-|  3x3     |     1rs move, 2nd move,etc  |      Total  |
-|  N° 1    |     22219, 23012, 23069, 23084  |  91384 |
-|  N° 2    |      45303, 46096, 46153, 46168   | 183720 | 
-|  N° 3    |    68387, 78691, 79016    | 226094 |
-|  N° 4    |      101235, 109071, 109356   | 319662 |
-|  N° 5    |   131575, 132368, 132425, 132440  | 528808 |
-|  Average   |                        | 269933.6     |
-
-
+| Tic Tac Toe  |  Expanded states  |    Total States     | 
+| :------:     | :---------------: | :-----------------: |
+|  3x3         |     1rs move, 2nd move,etc  |      Total  |
+|  N° 1        |     22219, 23012, 23069, 23084  |  91384 |
+|  N° 2        |      45303, 46096, 46153, 46168   | 183720 | 
+|  N° 3        |    68387, 78691, 79016, 67231    | 226094 |
+|  N° 4        |      101235, 109071, 109356 , 67231  | 319662 |
+|  N° 5        |   131575, 132368, 132425, 132440  | 528808 |
+|  Average     |                                | 269933.6   |
 
 
-## How many states does the game tree have for a 3x3, 4x4 and 5x5 board?
+
 The case depends in each case how we can see in the tables
 
 
