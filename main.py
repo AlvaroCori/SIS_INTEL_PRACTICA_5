@@ -2,7 +2,7 @@ from Min_Max_Branching import Alpha_Beta_Search
 from tic_tac_toe import *
 def menu():
     incise = -1
-    dificulty = 0
+    dificulty = 1
     player_turn = 1
     dificulty_string = ["facil 3x3", "mediano 4x4", "dificil 5x5"]
     while (incise != 0):
@@ -14,9 +14,9 @@ def menu():
         print("3. Min_Max + AlphaBeta Prunning ")
         print("4. MinMaxCutoff")
         print("5. Heuristica nueva")
-        print("6. Cambiar dificultad.")
-        print("7. Cambiar turno del jugador")
-        print("8. Best_Worse")
+        print("6. Best_Worse")
+        print("7. Cambiar dificultad.")
+        print("8. Cambiar turno del jugador")
         print("0. Salir")
         incise = int(input())
         if (incise == 1):
@@ -28,20 +28,20 @@ def menu():
         elif(incise == 4):
             functionH = min_max_cut_off
         elif(incise == 5): 
-            functionH = min_max_cut_off   
-        elif(incise == 8): 
+            functionH = min_max_cut_off_thanatos 
+        elif(incise == 6): 
             functionH = move
-        elif(incise == 9): 
-            functionH = min_max_cut_off_thanatos
-        elif(incise == 6):
-            print("\n1 : Facil\n 2 : Menidiano\n 3 : Dificil")
+        elif(incise == 7):
+            print("*********************************")
+            print("\n 1 : Facil\n 2 : Mediano\n 3 : Dificil\n")
+            print("*********************************")
             dificulty = int(input()) -1
-        elif (incise == 7):
+        elif (incise == 8):
                 print("Seleccione el turno del primer jugador:")
-                print("1. Segundo Turno ")
-                print("2. Primer Turno ")
+                print("1. Primer Turno.")
+                print("2. Segundo Turno.")
                 player_turn = int(input())
-        if (incise >= 1 and incise <= 9):
+        if (incise >= 1 and incise <= 6):
             counters = Tic_Tac_Toe(functionH, dificulty, player_turn)
             print(f"contador de estados expandidos maquina/segundo_jugador: {counters}")
             print(f"Total: {sum(counters)}")

@@ -102,6 +102,7 @@ def max_value(table,actions,variables_search,turn,depth):
         counter += 1
         next_actions = actions.copy()
         action = next_actions.pop(index)
+        
         v = max(v, min_value(result(table,action,turn),next_actions,variables_search, change_turn(turn),depth+1))
         table.clear_square(action)
         if (v > variables_search["beta"]):

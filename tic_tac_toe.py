@@ -62,14 +62,7 @@ def min_max_cut_off(board,turn):
     return best_position[0],best_position[1], counter
 
 def min_max_cut_off_thanatos(board, turn):
-    difficulty = 3
-    if (board.size == 3):
-        difficulty = 1
-    elif (board.size == 4):
-        difficulty = 2
-    elif (board.size == 5):
-        difficulty = 3
-    best_position, counter = thanatos(board,turn,difficulty)
+    best_position, counter = thanatos(board,turn)
     return best_position[0],best_position[1], counter 
 
 def multiplayer(board,turno):

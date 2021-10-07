@@ -3,11 +3,13 @@ import numpy as np
 import copy as cp
 from Board import Board
 import time
+
+from best_worse import predef_plays
 counter = 0
 difficulty_board = 3
-def result(table, action,turn):
+def next_state(table, action):
     row , col = action
-    table.table[row][col] = turn    
+    table.table[row][col] = table.turn    
     return table
 def utility(value):
     if (value == -1):
@@ -39,19 +41,18 @@ def get_actions(board):
 
 max_depth = 6
 #7-> 543.81
-def cut_off(state, depth):
-    return depth == max_depth
+def cut_off(state):
+    return state.depth == max_depth
 
-def thanatos(table, turn,difficulty):
+def thanatos(table, turn):
     global max_depth
     global counter
-    global difficulty_board
-    difficulty_board = difficulty
-    if (difficulty==1):
+    table.turn = turn
+    if (table.size <= 3):
+        max_depth = 9
+    elif (table.size == 4):
         max_depth = 4
-    elif (difficulty==2):
-        max_depth = 4
-    elif (difficulty==3):
+    elif (table.size >= 5):
         max_depth = 3
     
     value = 0
@@ -71,7 +72,7 @@ def thanatos(table, turn,difficulty):
         next_actions = actions.copy()
         action = next_actions.pop(index)
         table.depth += 1 
-        value = sigmov(result(table,action,turn),next_actions,variables_search)
+        value = sigmov(next_state(table,action),next_actions,variables_search)
         print("elemento",value,action)
         if (sigb(value,v)):
             v = value
@@ -84,8 +85,9 @@ def thanatos(table, turn,difficulty):
 
 def min_value(table, actions, variables_search):
     table.change_turn()
-    if (cut_off(table,table.depth) or table.check()!=-2): 
+    if (cut_off(table) or table.check()!=-2): 
         return evaluate(table)
+    
     v = 999999
     for index in actions:
         global counter
@@ -93,18 +95,18 @@ def min_value(table, actions, variables_search):
         next_actions = actions.copy()
         action = next_actions.pop(index)
         table.depth += 1
-        v = min(v, max_value(result(table,action,table.turn),next_actions,variables_search))
+        v = min(v, max_value(next_state(table,action),next_actions,variables_search))
         table.clear_square(action)
         table.depth -= 1
         table.change_turn()
-        if (v <= variables_search["alpha"]):
+        if (v < variables_search["alpha"]):
             return v
         variables_search["beta"] = min(variables_search["beta"],v)
     return v
 
 def max_value(table,actions,variables_search):
     table.change_turn()
-    if (cut_off(table,table.depth) or table.check()!=-2): 
+    if (cut_off(table) or table.check()!=-2): 
         return evaluate(table)
     v = -999999
     for index in actions:
@@ -113,11 +115,11 @@ def max_value(table,actions,variables_search):
         next_actions = actions.copy()
         action = next_actions.pop(index)
         table.depth += 1
-        v = max(v, min_value(result(table,action,table.turn),next_actions,variables_search))
+        v = max(v, min_value(next_state(table,action),next_actions,variables_search))
         table.clear_square(action)
         table.depth -= 1
         table.change_turn()
-        if (v >= variables_search["beta"]):
+        if (v > variables_search["beta"]):
             return v
         variables_search["alpha"] = max(variables_search["alpha"],v)
     return v
@@ -156,34 +158,39 @@ print(b.check())
 '''
 def evaluate(state):
     request = state.check()
-    '''
     if (request == 1):
         #print(state.table)
-        #n = input()
-        return 100
-    elif (request == -1):
+        #print(state.depth)
+        #print("/n",100*(max_depth+1-state.depth))
+        return 100*(max_depth+1-state.depth)
+    if (request == -1):
         #print(state.table)
-        #n = input()
-        return -100
-    '''
+        #print(state.depth)
+        #print("/n",-100*(max_depth+1-state.depth))
+        return -100*(max_depth+1-state.depth)
     return request
+'''
 b = Board(3)
-b.table[0][0]=-1
-b.table[0][1]=1
-b.table[0][2]=-1
-b.table[1][1]=1
+b.table[0][0] = -1
+b.table[1][1] = 1
+b.table[2][2] = -1
+b.table[1][2] = 1
+b.table[1][0] = -1
+b.table[2][0] = 1
+b.table[0][2] = -1
 init = time.time()
-print(thanatos(b,-1,1))
+print(thanatos(b,1))
 end = time.time()
 print(b.table)
 print(b.check())
 print(f"tiempo: {end-init}")
-
+'''
+'''
 from Min_Max import min_max_decision
-
 init = time.time()
 print(min_max_decision(b,-1))
 end = time.time()
 print(b.table)
 print(b.check())
 print(f"tiempo: {end-init}")
+'''
