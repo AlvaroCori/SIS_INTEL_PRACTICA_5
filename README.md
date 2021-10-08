@@ -34,6 +34,23 @@ Terminal test: Return the result in terms of gain or lossy. -2 already exits squ
 We implement dictionaries because is more fast pass a dictionary than calculate in every called at the function min or max.
 In the algorithm min_max
 
+## Training heucharist 
+
+The training heucaristic is a original algorithm, that analyzes the actual state, searching for the best row, the worse row, the best col, and the worse col, then calculate a value for utility to say if the actual state is advantageous or disadvantageous.
+The logid that it uses is:
+If a row/col is empty, its value is 1 point, because it could be a possible victory.
+If the row/col has at least one "X", and one "O", its value is 0 point, because there can no longer be a win or a loss on this row/col.
+Then depends if the analize its for "X"'s or "O"'s, supposing that its for "X"'s':
+If the row/col only has "X"'s, its utility is the amount of "X"'s plus one, because only 1 is for empty rows/cols.
+If the row/col only has "O";s, its utility is the amount of "O"'s, but with negative value, to point out that he is losing.
+
+It has the same logic to diagonals, and for the analysis of the "O"'s.
+
+We create a algorith that can return a coordenate using only this analysis, and some default posicions, to make another form to play Tic Tac Toe agains the machine, but this algorithm doesn't use recursion, so we use this algorithm like a trainer to the other algorithms.
+This algorithm is original thinked to 5 in line (Tic Tac Toe 5x5), but it is worth to 3 in line too (Tic Tac Toe 3x3). But it has problems with 4 in line (Tic Tac Toe 4x4), because it hasn't a center, and maybe there are exceptions that we have to add to the algorithm so that it is also effective with 4 in line.
+
+Like a heucharistic, it only has an analysis to the state, and return a utility, but like an algorithm to has return a coordenate, it doesn't use recursive, so it doesn't expands states, just analyze the current state with a better and worse row/col logic, and reinforces his better row/col if the worse row/col it doesn't mean that it's losing.
+
 
 ## How many states does the game tree have for a 3x3, 4x4 and 5x5 board?
 
@@ -89,6 +106,7 @@ Experiments with Min Max +  Cut Off + Count marks aliegned
 
 The case depends in each case how we can see in the tables
 
+##### Machine plays first turn
 
 | 3X3   |Min Max            |  Min Max Prunning   | Cut Off            |
 | :------: | :---------------: | :-----------------: | :-----------------:|
@@ -99,7 +117,7 @@ The case depends in each case how we can see in the tables
 |   1      |  1  	       |    1   	     |    4873  	  |   
 |  TOTAL   | 557487  	       |   67762  	     |    22715  	  |  
 
-
+##### Machine plays second turn
 
 | 3X3 <td  |Min Max            |  Min Max Prunning   | Cut Off            |
 | :------: | :---------------: | :-----------------: | :-----------------:|
@@ -108,6 +126,58 @@ The case depends in each case how we can see in the tables
 |   4      |  50	       |    44  	     |    4899  	  |   
 |   2      |  4  	       |     4  	     |    4903  	  |  
 |  TOTAL   | 56493 	       |   25227  	     |    17904  	  |  
+
+
+For 4x4 tables we only use the algorithms of Min Max Cut Off because the rest of other algorithms take a long time to response.
+
+##### Machine plays first turn
+
+| 4X4      |  Cut Off (count squares)  |  Cut Off (2)   | 
+| :------: | :---------------: | :-----------------: | 
+|   15      |  55940 	       |   45518  	     |  
+|   13      |  72309  	       |    63205  	     |  
+|   11      |  80708	       |    71044 	     |    
+|    9      |  88099 	       |    75708  	     | 
+|   7      |  88300 	       |    76032 	     | 
+|   5      |  88625	       |    76167  	     | 
+|   3      |  88641 	       |    76182 	     | 
+|   1      |  88641	       |    76183   	     | 
+|  TOTAL   | 651262  	       |   560039  	     |
+
+
+##### Machine plays second turn
+
+| 4X4      |  Cut Off (count squares)  |  Cut Off (2)   | 
+| :------: | :---------------: | :-----------------: | 
+|   16      |  68929 	       |   14032  	     |  
+|   14      |  93060  	       |    21443  	     |  
+|   12      |  114850	       |    25998 	     |    
+|   10      |  125511 	       |    28232  	     | 
+|   8      |  126681 	       |    28689 	     | 
+|   6      |  127917 	       |    29317  	     | 
+|   4      |  127975 	       |    29369 	     | 
+|   2      |  127979 	       |    29373   	     | 
+|  TOTAL   | 912902  	       |   206453  	     |
+
+
+##### Machine plays first turn
+
+| 5x5      |  Cut Off (count squares)  |  Cut Off (2)   | 
+| :------: | :---------------: | :-----------------: | 
+|   25      |  22866 	       |   974  	     | 
+|   23      |  50638 	       |   2645  	     | 
+|   21      |  68181 	       |   3994  	     | 
+|   19      |  80168 	       |   5197 	     | 
+|   17      |  89587 	       |   5634  	     |  
+|   15      |  96222  	       |    6285  	     |  
+|   13      |  102858  	       |    7093  	     | 
+|   11      |  105985	       |    7546 	     |    
+|   9      |  108838 	       |    7767  	     | 
+|   7      |  109937 	       |    7907 	     | 
+|   5      |  110136 	       |    7965  	     | 
+|   3      |  110147 	       |    7980 	     | 
+|   1      |   110148 	       |    7981   	     | 
+|  TOTAL   | 1165711  	       |   78968  	     |
 
 
 ## What is the algorithm that takes more (less) and expands more (less) states? MinMax, MinMax + AlphaBeta Prunning or MinMaxCutoff?
@@ -128,6 +198,22 @@ The cut off take 0.22 segs and 0.11 segs  0.03 segs in average.
 
 The states expanded is in the best when the pc take first turn.
 The states expanded is in the best when the pc take second turn.
+
+#### 4x4
+
+El tiempo promedio de jugador 2 es de: 1.4181 seg.
+
+
+El tiempo promedio de jugador 2 es de: 0.1712 seg.
+
+
+
+El tiempo promedio de jugador 2 es de: 1.0167 seg.
+
+
+El tiempo promedio de jugador 2 es de: 0.3959 seg.
+
+#### 5x5
 
 
 Conclusions 
