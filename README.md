@@ -15,9 +15,9 @@ Min Max Prunning. - The algorithm implements the same logic of Min Max, this alg
 Cut Off.- The cut off algorithm is similar at the Min Max Prunning with the difference of we implement a different end case for the recursive functions, with a some depth the algorithm looks for a heuristic that allows us to obtain a value of if it is gaining maximum or minimum.
 
 We implement two cut off heucharistics:
-1 .- Heuristic of counting alienated pieces, this heuristic counts each row horizontally, vertically and diagonally if this row contains squares marked in favor and empty squares add the squares, if it has squares marked in favor and squares marked with enemy marks add 0.
+Cut Off 1 .- Heuristic of counting alienated pieces, this heuristic counts each row horizontally, vertically and diagonally if this row contains squares marked in favor and empty squares add the squares, if it has squares marked in favor and squares marked with enemy marks add 0.
 
-2 .- Heuristic of depth.- This heuristic gets the result of the board and interprets it in different ways, if in the board are won the positive pieces rettorna 100 multiplied with the difference between the final depth plus one less the depth in which the state is found.
+Cut Off 2 .- Heuristic of depth (Thanatos).- This heuristic gets the result of the board and interprets it in different ways, if in the board are won the positive pieces rettorna 100 multiplied with the difference between the final depth plus one less the depth in which the state is found.
 If he’s earning minimum returns the same but negative, if a square is greater than the first position and last position of the rows and columns returns a 20 if this in the limits returns a 10 squares are added with the same mark and subtracted with those of the rival mark depending on whether it is a maximum or minimum mark.
 
 First, we get a table 3x3, 4x4 or 5x5 then the first player marks a position and be the turn of the second player. We repeat these cases until we get a table without free spaces.
@@ -260,13 +260,18 @@ The states expanded is in the best when the pc take second turn.
 Conclusions 
 =====================
 
-The best algorithm is the cut off, because we can cut to a certain level so that optimizing the time is even the one that takes less time to realize it.
+The best algorithm are the cut off, because we can cut to a certain level so that optimizing the time is even the one that takes less time to realize it.
+The best algorithm is the second cut off because is more fast in time and in expand states than the first cut off.
 
 The middle algorithm is the  prunning, because this cut brands and not examine all the cases.
 
 The worst algorithm is the min max, because this take all the cases and take a large time.
 
 All algorithms can responde in reasonable time on the 3x3 board, but when it does on the 4x4 board only the cut off can do it in optimal time and the prunning takes more than 7 minutes to respond. For the 5x5 board only the cut off can respond in time. The min max algorithm is only optimal if used on the 3x3 board.
+
+But the best contrincant is the 3x3 Min Max because the machine adquire a inteligence that is very difficult win, the most probable case is that the subjet lost or draw with the machine.
+
+The cut off thanatos is more optimal that the other cut off and we use this because have a better response with to cover the opponent.
 
 ## Bibliography
 ### reduce
