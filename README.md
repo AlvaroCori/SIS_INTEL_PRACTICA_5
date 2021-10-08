@@ -34,6 +34,23 @@ Terminal test: Return the result in terms of gain or lossy. -2 already exits squ
 We implement dictionaries because is more fast pass a dictionary than calculate in every called at the function min or max.
 In the algorithm min_max
 
+## Training heucharist 
+
+The training heucaristic is a original algorithm, that analyzes the actual state, searching for the best row, the worse row, the best col, and the worse col, then calculate a value for utility to say if the actual state is advantageous or disadvantageous.
+The logid that it uses is:
+If a row/col is empty, its value is 1 point, because it could be a possible victory.
+If the row/col has at least one "X", and one "O", its value is 0 point, because there can no longer be a win or a loss on this row/col.
+Then depends if the analize its for "X"'s or "O"'s, supposing that its for "X"'s':
+If the row/col only has "X"'s, its utility is the amount of "X"'s plus one, because only 1 is for empty rows/cols.
+If the row/col only has "O";s, its utility is the amount of "O"'s, but with negative value, to point out that he is losing.
+
+It has the same logic to diagonals, and for the analysis of the "O"'s.
+
+We create a algorith that can return a coordenate using only this analysis, and some default posicions, to make another form to play Tic Tac Toe agains the machine, but this algorithm doesn't use recursion, so we use this algorithm like a trainer to the other algorithms.
+This algorithm is original thinked to 5 in line (Tic Tac Toe 5x5), but it is worth to 3 in line too (Tic Tac Toe 3x3). But it has problems with 4 in line (Tic Tac Toe 4x4), because it hasn't a center, and maybe there are exceptions that we have to add to the algorithm so that it is also effective with 4 in line.
+
+Like a heucharistic, it only has an analysis to the state, and return a utility, but like an algorithm to has return a coordenate, it doesn't use recursive, so it doesn't expands states, just analyze the current state with a better and worse row/col logic, and reinforces his better row/col if the worse row/col it doesn't mean that it's losing.
+
 
 ## How many states does the game tree have for a 3x3, 4x4 and 5x5 board?
 
@@ -86,28 +103,107 @@ Experiments with Min Max +  Cut Off + Count marks aliegned
 |  Average     |                                | 269933.6   |
 
 
+In the next tables we can compare the number of states obtained by turns be the first the states with many avalaible squares and the last the tables with less avalaible squares.
 
-The case depends in each case how we can see in the tables
-
-
-| 3X3   |Min Max            |  Min Max Prunning   | Cut Off            |
-| :------: | :---------------: | :-----------------: | :-----------------:|
-|   9      |  549945 	       |   66453  	     |    3253 		  |  
-|   7      |   7331  	       |    1253  	     |    4839  	  |   
-|   5      |  197 	       |    42  	     |    4873  	  |   
-|   3      |  13  	       |    13  	     |    4877  	  |  
-|   1      |  1  	       |    1   	     |    4873  	  |   
-|  TOTAL   | 557487  	       |   67762  	     |    22715  	  |  
+##### Machine plays first turn
 
 
+| 3X3   |Min Max            |  Min Max Prunning   | Cut Off    (1)        |Cut Off    (2)     |
+| :------: | :---------------: | :-----------------: | :-----------------:|:-----------------:|
+|   9      |  549945 	       |   66453  	     |    2534 		  |      40936 	      | 
+|   7      |   7331  	       |    1253  	     |    359   	  |     762  	      |   
+|   5      |  197 	       |    42  	     |    325   	  |     66  	      |   
+|   3      |  13  	       |    13  	     |    15    	  |      15  	      | 
+|   1      |  1  	       |    1   	     |    1     	  |      1  	      |  
+|  TOTAL   | 557487  	       |   67762  	     |    3234  	  |    41780 	      | 
+|  AVERAGE   | 111497.4  	       |   13552.4  	     |    646.8  	  |    8356 	      |
 
-| 3X3 <td  |Min Max            |  Min Max Prunning   | Cut Off            |
-| :------: | :---------------: | :-----------------: | :-----------------:|
-|   8      |  55504	       |   24802  	     |    3253 		  |  
-|   6      |   935  	       |    377  	     |    4849  	  |   
-|   4      |  50	       |    44  	     |    4899  	  |   
-|   2      |  4  	       |     4  	     |    4903  	  |  
-|  TOTAL   | 56493 	       |   25227  	     |    17904  	  |  
+##### Machine plays second turn
+
+
+| 3X3      |Min Max            |  Min Max Prunning   | Cut Off   (1)      | Cut Off   (2)      |
+| :------: | :---------------: | :-----------------: | :-----------------:| :-----------------:|
+|   8      |  55504	       |   24802  	     |    3549 		  |     13965 	       | 
+|   6      |   935  	       |    377  	     |    568   	  |    401   	       |   
+|   4      |  50	       |    44  	     |    60    	  |       28           |
+|   2      |  4  	       |     4  	     |    4    	          |      4    	       |
+|  TOTAL   | 56493 	       |   25227  	     |    4181  	  |    14398  	       |  
+|  AVERAGE   | 14123.25  	       |   6306.75  	     |    1045.25  	  |    3599.5 	      |
+
+For 4x4 tables we only use the algorithms of Min Max Cut Off because the rest of other algorithms take a long time to response.
+
+##### Machine plays first turn
+
+| 4X4      |  Cut Off (1)  |  Cut Off (2)   | 
+| :------: | :---------------: | :-----------------: | 
+|   15      |  41128 	       |   45518  	     |  
+|   13      |  12251 	       |    17050  	     |  
+|   11      |  7953	       |    3137 	     |    
+|    9      |  3620 	       |    1197  	     | 
+|   7      |  1793 	       |     674 	     | 
+|   5      |  309	       |    99  	     | 
+|   3      |  15 	       |    15 	             | 
+|   1      |  1 	       |    1   	     | 
+|  TOTAL   | 67070  	       |   67691 	     |
+|  AVERAGE   | 8383.75  	       |   8461.375 	     |
+
+##### Machine plays second turn
+
+| 4X4      |  Cut Off (1)  |  Cut Off (2)   | 
+| :------: | :---------------: | :-----------------: | 
+|   16      |  68929 	       |   14032  	     |  
+|   14      |  17069  	       |    7052  	     |  
+|   12      |  5455	       |    3862 	     |    
+|   10      |  4937 	       |    1865  	     | 
+|   8      |  356 	       |    1485 	     | 
+|   6      |  924	       |    790  	     | 
+|   4      |  56	       |    64 	             | 
+|   2      |  4 	       |    4   	     | 
+|  TOTAL   | 97730  	       |   29154  	     |
+|  AVERAGE   | 12216.25  	       |   3644.25 	  |
+
+
+
+##### Machine plays first turn
+
+
+| 5x5      |  Cut Off (1s)  |  Cut Off (2)   | 
+| :------: | :---------------: | :-----------------: | 
+|   25      |  22866 	       |   974  	     | 
+|   23      |  19639 	       |   814  	     | 
+|   21      |  15508 	       |   501  	     | 
+|   19      |  22316 	       |   1545 	     | 
+|   17      |  20957 	       |   2031  	     |  
+|   15      |  14325  	       |    1829  	     |  
+|   13      |  10021  	       |    737  	     | 
+|   11      |  5479	       |    559 	     |    
+|   9      |  1965 	       |    245  	     | 
+|   7      |  759	       |    178 	     | 
+|   5      |  139	       |    37  	     | 
+|   3      |  15 	       |    15  	     | 
+|   1      |   1 	       |    1   	     | 
+|  TOTAL   | 133990  	       |   9466  	     |
+|  AVERAGE   | 10306.92  	       |  728.15 	  |
+
+##### Machine plays second turn
+| 5x5      |  Cut Off (1)  |  Cut Off (2)   | 
+| :------: | :---------------: | :-----------------: | 
+|   24      |  89372 	       |   1741  	     | 
+|   22      |  35831 	       |   1183  	     | 
+|   20      |  33788	       |   1145  	     | 
+|   18      |   17312 	       |   1627 	     | 
+|   16      |  10252 	       |   825  	     |  
+|   14      |  4766  	       |    358  	     |  
+|   12      |  2284  	       |    921  	     | 
+|   10      |  4420	       |    95 	             |    
+|   8      |  1792	       |    52  	     | 
+|   6      |  516 	       |    82  	     | 
+|   4      |  64	       |    35  	     | 
+|   2      |  4	               |    4 	             | 
+|  TOTAL   | 200401 	       |   8068  	     |
+|  AVERAGE   | 16700.08  	       |  672.33 	  |
+
+##### Machine plays second turn
 
 
 ## What is the algorithm that takes more (less) and expands more (less) states? MinMax, MinMax + AlphaBeta Prunning or MinMaxCutoff?
@@ -121,10 +217,41 @@ The states expanded is the worst when the pc take second turn.
 The Min max prunning take 0.22 segs and 0.1157 segs in average.
 
 The states expanded is in the middle when the pc take first turn.
+The states expanded is in the second best when the pc take second turn.
+
+The cut off (1) take 0.22 segs and 0.11 segs  in average.
+
+The states expanded is in the best when the pc take first turn.
+The states expanded is in the best when the pc take second turn.
+
+
+The cut off (2) take 0.2282 segs and 0.0651 segs  in average.
+
+The states expanded is in the second best when the pc take first turn.
 The states expanded is in the middle when the pc take second turn.
 
-The cut off take 0.22 segs and 0.11 segs  0.03 segs in average.
 
+Also we only obtain the time for 4x4 and 5x5 with the Cut Off algorithm.
+
+#### 4x4
+The first cut off take  1.4181 seg. and 1.0167 seg. in average.
+
+The states expanded is the worst when the pc take first turn.
+The states expanded is the worst when the pc take second turn.
+
+The second cut off take  0.1712 seg. and 0.3959 seg. in average.
+
+The states expanded is in the best when the pc take first turn.
+The states expanded is in the best when the pc take second turn.
+
+#### 5x5
+
+The first cut off take  2.3286 seg. and 1.0474 seg. in average.
+
+The states expanded is the worst when the pc take first turn.
+The states expanded is the worst when the pc take second turn.
+
+The second cut off take  0.0537 seg. and 0.0607 seg. in average.
 
 The states expanded is in the best when the pc take first turn.
 The states expanded is in the best when the pc take second turn.
