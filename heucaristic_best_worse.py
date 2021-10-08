@@ -119,7 +119,7 @@ def check_utility(table, turn):
     worse_col = 0
     utility_worse_col = 1
     for i in range(table.size):
-        print("i:",i)
+        #print("i:",i)
         
         utility_row = check_row(table, i, turn)
         if  utility_row > utility_best_row:
@@ -137,10 +137,6 @@ def check_utility(table, turn):
             worse_col = i
             utility_worse_col = utility_col
             
-        print("best_row:",best_row, "utility_best_row:",utility_best_row)
-        print("best_col:",best_col, "utility_best_col:",utility_best_col)
-        print("worse_row:",worse_row, "utility_worse_row:",utility_worse_row)
-        print("worse_col:",worse_col, "utility_worse_col:",utility_worse_col)
     
     best_dia = check_diagonal_LtoR(table, turn)
     rev = check_diagonal_RtoL(table, turn)
@@ -156,7 +152,6 @@ def check_utility(table, turn):
         main_col = utility_best_col
     else:
         main_col = utility_worse_col 
-    print("main_row:",main_row,"main_col:",main_col,"best_dia:",best_dia,)
     
     if abs(main_row) > abs(main_col) and abs(main_row) > abs(best_dia):
         if main_row > 0:
@@ -176,7 +171,7 @@ def check_utility(table, turn):
         
     return utility
         
-
+'''
 b = Board(5)
 b.table[2][2] = -1
 b.table[3][1] = -1
@@ -197,3 +192,4 @@ b#.table[1][2] = 1
 b.print_board()
 print(check_utility(b, 1))
 
+'''

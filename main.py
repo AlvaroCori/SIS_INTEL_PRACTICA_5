@@ -1,8 +1,8 @@
 from tic_tac_toe import *
 def menu():
     incise = -1
-    dificulty =1
-    player_turn = 2
+    dificulty = 0
+    player_turn = 1
     dificulty_string = ["facil 3x3", "mediano 4x4", "dificil 5x5"]
     while (incise != 0):
         print("Escoge el modo de juego:")
@@ -11,9 +11,9 @@ def menu():
         print("1. Multijugador ")
         print("2. Min_Max ")
         print("3. Min_Max + AlphaBeta Prunning ")
-        print("4. MinMaxCutoff")
-        print("5. Heuristica nueva")
-        print("6. Best_Worse")
+        print("4. Cut Off diferencias entre casillas")
+        print("5. Thanatos Cut Off")
+        print("6. Entrenador de algoritmos.")
         print("7. Cambiar dificultad.")
         print("8. Cambiar turno del jugador")
         print("0. Salir")
@@ -44,6 +44,7 @@ def menu():
             counters = Tic_Tac_Toe(functionH, dificulty, player_turn)
             print(f"contador de estados expandidos maquina/segundo_jugador: {counters}")
             print(f"Total: {sum(counters)}")
-        input("presione enter para continuar.")
+        if (incise != 0):
+            input("presione enter para continuar.")
 
 menu()

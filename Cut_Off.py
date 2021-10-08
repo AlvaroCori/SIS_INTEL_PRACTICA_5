@@ -48,6 +48,7 @@ def cut_off(state, depth):
 def min_max_prunning_cut_off(table, turn,difficulty):
     global max_depth
     global counter
+    counter = 0
     if (difficulty==1):
         max_depth = 4
     elif (difficulty==2):

@@ -3,8 +3,7 @@ import numpy as np
 import copy as cp
 from Board import Board
 import time
-
-from best_worse import predef_plays
+from heucaristic_best_worse import *
 counter = 0
 difficulty_board = 3
 def next_state(table, action):
@@ -47,6 +46,7 @@ def cut_off(state):
 def thanatos(table, turn):
     global max_depth
     global counter
+    counter = 0
     table.turn = turn
     if (table.size <= 3):
         max_depth = 9
@@ -122,6 +122,8 @@ def max_value(table,actions,variables_search):
             return v
         variables_search["alpha"] = max(variables_search["alpha"],v)
     return v
+
+
 def evaluate(state):
     request = state.check()
     if (request == 1):
@@ -146,6 +148,7 @@ def evaluate(state):
             request += state.count_cross_pieces(first_i,first_j)
         return request * state.turn
     return request
+
 '''
 b = Board(3)
 b.table[0][0] = -1
@@ -171,3 +174,12 @@ print(b.table)
 print(b.check())
 print(f"tiempo: {end-init}")
 '''
+from best_worse import *
+
+b = Board(3)
+b.table[0][0] = -1
+b.table[1][0] = 1
+print(thanatos(b,-1))
+
+#print(move(b,1))
+
