@@ -116,6 +116,7 @@ In the next tables we can compare the number of states obtained by turns be the 
 |   3      |  13  	       |    13  	     |    15    	  |      15  	      | 
 |   1      |  1  	       |    1   	     |    1     	  |      1  	      |  
 |  TOTAL   | 557487  	       |   67762  	     |    3234  	  |    41780 	      | 
+|  AVERAGE   | 111497.4  	       |   13552.4  	     |    646.8  	  |    8356 	      |
 
 ##### Machine plays second turn
 
@@ -127,7 +128,7 @@ In the next tables we can compare the number of states obtained by turns be the 
 |   4      |  50	       |    44  	     |    60    	  |       28           |
 |   2      |  4  	       |     4  	     |    4    	          |      4    	       |
 |  TOTAL   | 56493 	       |   25227  	     |    4181  	  |    14398  	       |  
-
+|  AVERAGE   | 14123.25  	       |   6306.75  	     |    1045.25  	  |    3599.5 	      |
 
 For 4x4 tables we only use the algorithms of Min Max Cut Off because the rest of other algorithms take a long time to response.
 
@@ -144,7 +145,7 @@ For 4x4 tables we only use the algorithms of Min Max Cut Off because the rest of
 |   3      |  15 	       |    15 	             | 
 |   1      |  1 	       |    1   	     | 
 |  TOTAL   | 67070  	       |   67691 	     |
-
+|  AVERAGE   | 8383.75  	       |   8461.375 	     |
 
 ##### Machine plays second turn
 
@@ -159,7 +160,7 @@ For 4x4 tables we only use the algorithms of Min Max Cut Off because the rest of
 |   4      |  56	       |    64 	             | 
 |   2      |  4 	       |    4   	     | 
 |  TOTAL   | 97730  	       |   29154  	     |
-
+|  AVERAGE   | 12216.25  	       |   3644.25 	  |
 
 
 
@@ -182,24 +183,25 @@ For 4x4 tables we only use the algorithms of Min Max Cut Off because the rest of
 |   3      |  15 	       |    15  	     | 
 |   1      |   1 	       |    1   	     | 
 |  TOTAL   | 133990  	       |   9466  	     |
+|  AVERAGE   | 10306.92  	       |  728.15 	  |
 
 ##### Machine plays second turn
-
 | 5x5      |  Cut Off (1)  |  Cut Off (2)   | 
 | :------: | :---------------: | :-----------------: | 
-|   24      |  547126 	       |   1741  	     | 
-|   22      |  580542 	       |   1183  	     | 
-|   20      |  617922 	       |   1145  	     | 
-|   18      |  640462 	       |   1627 	     | 
-|   16      |  652132 	       |   825  	     |  
-|   14      |  668193  	       |    358  	     |  
-|   12      |  676613  	       |    921  	     | 
-|   10      |  679973	       |    95 	             |    
-|   8      |  681017 	       |    52  	     | 
-|   6      |  681241 	       |    82  	     | 
-|   4      |  681295	       |    35  	     | 
-|   2      |  681299	       |    4 	             | 
-|  TOTAL   | 7787815  	       |   8068  	     |
+|   24      |  89372 	       |   1741  	     | 
+|   22      |  35831 	       |   1183  	     | 
+|   20      |  33788	       |   1145  	     | 
+|   18      |   17312 	       |   1627 	     | 
+|   16      |  10252 	       |   825  	     |  
+|   14      |  4766  	       |    358  	     |  
+|   12      |  2284  	       |    921  	     | 
+|   10      |  4420	       |    95 	             |    
+|   8      |  1792	       |    52  	     | 
+|   6      |  516 	       |    82  	     | 
+|   4      |  64	       |    35  	     | 
+|   2      |  4	               |    4 	             | 
+|  TOTAL   | 200401 	       |   8068  	     |
+|  AVERAGE   | 16700.08  	       |  672.33 	  |
 
 ##### Machine plays second turn
 
@@ -215,12 +217,18 @@ The states expanded is the worst when the pc take second turn.
 The Min max prunning take 0.22 segs and 0.1157 segs in average.
 
 The states expanded is in the middle when the pc take first turn.
-The states expanded is in the middle when the pc take second turn.
+The states expanded is in the second best when the pc take second turn.
 
-The cut off take 0.22 segs and 0.11 segs  in average.
+The cut off (1) take 0.22 segs and 0.11 segs  in average.
 
 The states expanded is in the best when the pc take first turn.
 The states expanded is in the best when the pc take second turn.
+
+
+The cut off (2) take 0.2282 segs and 0.0651 segs  in average.
+
+The states expanded is in the second best when the pc take first turn.
+The states expanded is in the middle when the pc take second turn.
 
 
 Also we only obtain the time for 4x4 and 5x5 with the Cut Off algorithm.
