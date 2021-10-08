@@ -105,10 +105,11 @@ def check_diagonal_RtoL(board, turn):
     return utility
 
 def check_for_diagonal(board, turn):
-    count_x = 0
-    count_o = 0
+
     utility = 1
     for i in range(board.size):
+        count_x = 0
+        count_o = 0
         for j in range(board.size):
             if board.table[i][j] == 1:
                 count_o+=1
@@ -199,8 +200,8 @@ def predef_plays(table, turn):
                 #print("Al centro")
                 a , b = 2, 2
             else:
-                #print("Viendo Diagonales...")
-                #print("LtoR", check_diagonal_LtoR(table, turn))
+                print("Viendo Diagonales...")
+                print("D", check_for_diagonal(table, turn))
                 #print("RtoL", check_diagonal_RtoL(table, turn))
                 if check_for_diagonal(table, turn) > 0:
                     for k in range(table.size):
@@ -208,11 +209,16 @@ def predef_plays(table, turn):
                             a, b = k, k
                             break
                     if a == -1:
+                        var = table.size
                         for k in range(table.size):
                             var -=1
                             if table.table[var][k] == 0:
                                 a, b = k, k
                                 break
+        elif table.size == 3:
+            if table.table[1][1] == 0:
+                #print("Al centro")
+                a , b = 1, 1
     return a, b
 
 def move(table, turn):
