@@ -103,81 +103,105 @@ Experiments with Min Max +  Cut Off + Count marks aliegned
 |  Average     |                                | 269933.6   |
 
 
-
-The case depends in each case how we can see in the tables
+In the next tables we can compare the number of states obtained by turns be the first the states with many avalaible squares and the last the tables with less avalaible squares.
 
 ##### Machine plays first turn
 
-| 3X3   |Min Max            |  Min Max Prunning   | Cut Off            |
-| :------: | :---------------: | :-----------------: | :-----------------:|
-|   9      |  549945 	       |   66453  	     |    3253 		  |  
-|   7      |   7331  	       |    1253  	     |    4839  	  |   
-|   5      |  197 	       |    42  	     |    4873  	  |   
-|   3      |  13  	       |    13  	     |    4877  	  |  
-|   1      |  1  	       |    1   	     |    4873  	  |   
-|  TOTAL   | 557487  	       |   67762  	     |    22715  	  |  
+
+| 3X3   |Min Max            |  Min Max Prunning   | Cut Off    (1)        |Cut Off    (2)     |
+| :------: | :---------------: | :-----------------: | :-----------------:|:-----------------:|
+|   9      |  549945 	       |   66453  	     |    2534 		  |      40936 	      | 
+|   7      |   7331  	       |    1253  	     |    359   	  |     762  	      |   
+|   5      |  197 	       |    42  	     |    325   	  |     66  	      |   
+|   3      |  13  	       |    13  	     |    15    	  |      15  	      | 
+|   1      |  1  	       |    1   	     |    1     	  |      1  	      |  
+|  TOTAL   | 557487  	       |   67762  	     |    3234  	  |    41780 	      | 
 
 ##### Machine plays second turn
 
-| 3X3 <td  |Min Max            |  Min Max Prunning   | Cut Off            |
-| :------: | :---------------: | :-----------------: | :-----------------:|
-|   8      |  55504	       |   24802  	     |    3253 		  |  
-|   6      |   935  	       |    377  	     |    4849  	  |   
-|   4      |  50	       |    44  	     |    4899  	  |   
-|   2      |  4  	       |     4  	     |    4903  	  |  
-|  TOTAL   | 56493 	       |   25227  	     |    17904  	  |  
+
+| 3X3      |Min Max            |  Min Max Prunning   | Cut Off   (1)      | Cut Off   (2)      |
+| :------: | :---------------: | :-----------------: | :-----------------:| :-----------------:|
+|   8      |  55504	       |   24802  	     |    3549 		  |     13965 	       | 
+|   6      |   935  	       |    377  	     |    568   	  |    401   	       |   
+|   4      |  50	       |    44  	     |    60    	  |       28           |
+|   2      |  4  	       |     4  	     |    4    	          |      4    	       |
+|  TOTAL   | 56493 	       |   25227  	     |    4181  	  |    14398  	       |  
 
 
 For 4x4 tables we only use the algorithms of Min Max Cut Off because the rest of other algorithms take a long time to response.
 
 ##### Machine plays first turn
 
-| 4X4      |  Cut Off (count squares)  |  Cut Off (2)   | 
+| 4X4      |  Cut Off (1)  |  Cut Off (2)   | 
 | :------: | :---------------: | :-----------------: | 
-|   15      |  55940 	       |   45518  	     |  
-|   13      |  72309  	       |    63205  	     |  
-|   11      |  80708	       |    71044 	     |    
-|    9      |  88099 	       |    75708  	     | 
-|   7      |  88300 	       |    76032 	     | 
-|   5      |  88625	       |    76167  	     | 
-|   3      |  88641 	       |    76182 	     | 
-|   1      |  88641	       |    76183   	     | 
-|  TOTAL   | 651262  	       |   560039  	     |
+|   15      |  41128 	       |   45518  	     |  
+|   13      |  12251 	       |    17050  	     |  
+|   11      |  7953	       |    3137 	     |    
+|    9      |  3620 	       |    1197  	     | 
+|   7      |  1793 	       |     674 	     | 
+|   5      |  309	       |    99  	     | 
+|   3      |  15 	       |    15 	             | 
+|   1      |  1 	       |    1   	     | 
+|  TOTAL   | 67070  	       |   67691 	     |
 
 
 ##### Machine plays second turn
 
-| 4X4      |  Cut Off (count squares)  |  Cut Off (2)   | 
+| 4X4      |  Cut Off (1)  |  Cut Off (2)   | 
 | :------: | :---------------: | :-----------------: | 
 |   16      |  68929 	       |   14032  	     |  
-|   14      |  93060  	       |    21443  	     |  
-|   12      |  114850	       |    25998 	     |    
-|   10      |  125511 	       |    28232  	     | 
-|   8      |  126681 	       |    28689 	     | 
-|   6      |  127917 	       |    29317  	     | 
-|   4      |  127975 	       |    29369 	     | 
-|   2      |  127979 	       |    29373   	     | 
-|  TOTAL   | 912902  	       |   206453  	     |
+|   14      |  17069  	       |    7052  	     |  
+|   12      |  5455	       |    3862 	     |    
+|   10      |  4937 	       |    1865  	     | 
+|   8      |  356 	       |    1485 	     | 
+|   6      |  924	       |    790  	     | 
+|   4      |  56	       |    64 	             | 
+|   2      |  4 	       |    4   	     | 
+|  TOTAL   | 97730  	       |   29154  	     |
+
+
 
 
 ##### Machine plays first turn
 
-| 5x5      |  Cut Off (count squares)  |  Cut Off (2)   | 
+
+| 5x5      |  Cut Off (1s)  |  Cut Off (2)   | 
 | :------: | :---------------: | :-----------------: | 
 |   25      |  22866 	       |   974  	     | 
-|   23      |  50638 	       |   2645  	     | 
-|   21      |  68181 	       |   3994  	     | 
-|   19      |  80168 	       |   5197 	     | 
-|   17      |  89587 	       |   5634  	     |  
-|   15      |  96222  	       |    6285  	     |  
-|   13      |  102858  	       |    7093  	     | 
-|   11      |  105985	       |    7546 	     |    
-|   9      |  108838 	       |    7767  	     | 
-|   7      |  109937 	       |    7907 	     | 
-|   5      |  110136 	       |    7965  	     | 
-|   3      |  110147 	       |    7980 	     | 
-|   1      |   110148 	       |    7981   	     | 
-|  TOTAL   | 1165711  	       |   78968  	     |
+|   23      |  19639 	       |   814  	     | 
+|   21      |  15508 	       |   501  	     | 
+|   19      |  22316 	       |   1545 	     | 
+|   17      |  20957 	       |   2031  	     |  
+|   15      |  14325  	       |    1829  	     |  
+|   13      |  10021  	       |    737  	     | 
+|   11      |  5479	       |    559 	     |    
+|   9      |  1965 	       |    245  	     | 
+|   7      |  759	       |    178 	     | 
+|   5      |  139	       |    37  	     | 
+|   3      |  15 	       |    15  	     | 
+|   1      |   1 	       |    1   	     | 
+|  TOTAL   | 133990  	       |   9466  	     |
+
+##### Machine plays second turn
+
+| 5x5      |  Cut Off (1)  |  Cut Off (2)   | 
+| :------: | :---------------: | :-----------------: | 
+|   24      |  547126 	       |   1741  	     | 
+|   22      |  580542 	       |   1183  	     | 
+|   20      |  617922 	       |   1145  	     | 
+|   18      |  640462 	       |   1627 	     | 
+|   16      |  652132 	       |   825  	     |  
+|   14      |  668193  	       |    358  	     |  
+|   12      |  676613  	       |    921  	     | 
+|   10      |  679973	       |    95 	             |    
+|   8      |  681017 	       |    52  	     | 
+|   6      |  681241 	       |    82  	     | 
+|   4      |  681295	       |    35  	     | 
+|   2      |  681299	       |    4 	             | 
+|  TOTAL   | 7787815  	       |   8068  	     |
+
+##### Machine plays second turn
 
 
 ## What is the algorithm that takes more (less) and expands more (less) states? MinMax, MinMax + AlphaBeta Prunning or MinMaxCutoff?
@@ -193,27 +217,36 @@ The Min max prunning take 0.22 segs and 0.1157 segs in average.
 The states expanded is in the middle when the pc take first turn.
 The states expanded is in the middle when the pc take second turn.
 
-The cut off take 0.22 segs and 0.11 segs  0.03 segs in average.
-
+The cut off take 0.22 segs and 0.11 segs  in average.
 
 The states expanded is in the best when the pc take first turn.
 The states expanded is in the best when the pc take second turn.
 
+
+Also we only obtain the time for 4x4 and 5x5 with the Cut Off algorithm.
+
 #### 4x4
+The first cut off take  1.4181 seg. and 1.0167 seg. in average.
 
-El tiempo promedio de jugador 2 es de: 1.4181 seg.
+The states expanded is the worst when the pc take first turn.
+The states expanded is the worst when the pc take second turn.
 
+The second cut off take  0.1712 seg. and 0.3959 seg. in average.
 
-El tiempo promedio de jugador 2 es de: 0.1712 seg.
-
-
-
-El tiempo promedio de jugador 2 es de: 1.0167 seg.
-
-
-El tiempo promedio de jugador 2 es de: 0.3959 seg.
+The states expanded is in the best when the pc take first turn.
+The states expanded is in the best when the pc take second turn.
 
 #### 5x5
+
+The first cut off take  2.3286 seg. and 1.0474 seg. in average.
+
+The states expanded is the worst when the pc take first turn.
+The states expanded is the worst when the pc take second turn.
+
+The second cut off take  0.0537 seg. and 0.0607 seg. in average.
+
+The states expanded is in the best when the pc take first turn.
+The states expanded is in the best when the pc take second turn.
 
 
 Conclusions 
